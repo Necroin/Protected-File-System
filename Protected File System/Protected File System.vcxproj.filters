@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\File System">
+      <UniqueIdentifier>{62cb42fa-51ca-4a44-8475-08bae34331d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\User">
+      <UniqueIdentifier>{3f79b2bb-28f7-43ec-973a-e2802924e604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\System Object">
+      <UniqueIdentifier>{9d9b74f7-5dfb-4314-9341-90500d57c98b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\System Object\File">
+      <UniqueIdentifier>{a4f8c939-da0c-48c3-9f2c-89f6aa45a019}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\System Object\File\Common File">
+      <UniqueIdentifier>{9ebc6d6b-ccf4-420e-9408-461465ad3f4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\System Object\File\Encrypted File">
+      <UniqueIdentifier>{1484369a-12b5-45c3-bf60-2934044386f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\System Object\Catalog">
+      <UniqueIdentifier>{0b35ff16-6122-44e4-8929-f39990a73be2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Main">
+      <UniqueIdentifier>{ad2302f5-fb1a-4f87-986a-604b95c861ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Contextual Menu">
+      <UniqueIdentifier>{b8c9a5f6-3be0-48d2-8662-ef1f950fa880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Input">
+      <UniqueIdentifier>{86e664d4-7eb7-48f3-af65-20ef570c9077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Support Structures">
+      <UniqueIdentifier>{5f819af5-ba98-4e45-9cf9-943012daf860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Stream">
+      <UniqueIdentifier>{47623ceb-65ca-4a6c-8f45-b1de6f7c9864}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Protected Fille System\System Object\Catalog\Catalog.cpp">
+      <Filter>Исходные файлы\System Object\Catalog</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Protected Fille System\File System\FileSystem.cpp">
+      <Filter>Исходные файлы\File System</Filter>
+    </ClCompile>
+    <ClCompile Include="Protected Fille System\User\User.cpp">
+      <Filter>Исходные файлы\User</Filter>
+    </ClCompile>
+    <ClCompile Include="Protected Fille System\Contextual Menu\ContextualMenu.cpp">
+      <Filter>Исходные файлы\Contextual Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Protected Fille System\System Object\SystemObject.cpp">
+      <Filter>Исходные файлы\System Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Protected Fille System\System Object\Catalog\CatalogCommands.cpp">
+      <Filter>Исходные файлы\System Object\Catalog</Filter>
+    </ClCompile>
+    <ClCompile Include="Protected Fille System\System Object\SystemObjectCommands.cpp">
+      <Filter>Исходные файлы\System Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Protected Fille System\System Object\File\Common File\CommonFile.cpp">
+      <Filter>Исходные файлы\System Object\File\Common File</Filter>
+    </ClCompile>
+    <ClCompile Include="Protected Fille System\System Object\File\Encrypted File\EncryptedFile.cpp">
+      <Filter>Исходные файлы\System Object\File\Encrypted File</Filter>
+    </ClCompile>
+    <ClCompile Include="Protected Fille System\System Object\File\Common File\CommonFileCommands.cpp">
+      <Filter>Исходные файлы\System Object\File\Common File</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Protected Fille System\Support Structures\Pair.h">
+      <Filter>Исходные файлы\Support Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Protected Fille System\File System\FileSystem.h">
+      <Filter>Исходные файлы\File System</Filter>
+    </ClInclude>
+    <ClInclude Include="Protected Fille System\Support Structures\Date.h">
+      <Filter>Исходные файлы\Support Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Protected Fille System\Support Structures\Time.h">
+      <Filter>Исходные файлы\Support Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Protected Fille System\User\User.h">
+      <Filter>Исходные файлы\User</Filter>
+    </ClInclude>
+    <ClInclude Include="Protected Fille System\System Object\SystemObject.h">
+      <Filter>Исходные файлы\System Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Protected Fille System\System Object\Catalog\Catalog.h">
+      <Filter>Исходные файлы\System Object\Catalog</Filter>
+    </ClInclude>
+    <ClInclude Include="Protected Fille System\Contextual Menu\ContextualMenu.h">
+      <Filter>Исходные файлы\Contextual Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Protected Fille System\Input\Input.h">
+      <Filter>Исходные файлы\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Protected Fille System\System Object\File\Common File\CommonFile.h">
+      <Filter>Исходные файлы\System Object\File\Common File</Filter>
+    </ClInclude>
+    <ClInclude Include="Protected Fille System\System Object\File\Encrypted File\EncryptedFile.h">
+      <Filter>Исходные файлы\System Object\File\Encrypted File</Filter>
+    </ClInclude>
+    <ClInclude Include="Protected Fille System\Stream\Stream.h">
+      <Filter>Исходные файлы\Stream</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
