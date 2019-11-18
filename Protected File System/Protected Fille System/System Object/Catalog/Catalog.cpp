@@ -11,6 +11,7 @@ Catalog::Catalog(Catalog* parent, Date date, Time time, std::string path, std::s
 	create_file_command    = new CreateFileCommand;
 	create_catalog_command = new CreateCatalogCommand;
 	back_up_command        = new BackUpCommand;
+	log_out_command        = new LogOutCommand;
 }
 
 Catalog::~Catalog()
@@ -19,6 +20,10 @@ Catalog::~Catalog()
 	{
 		delete _objects[i];
 	}
+}
+
+void Catalog::Destroy_all_commands()
+{
 	delete open_command;
 	delete copy_command;
 	delete delete_command;
@@ -29,8 +34,8 @@ Catalog::~Catalog()
 
 void Catalog::Show_in_actions()
 {
-	size_t count = _parent ? 4 : 3;
-	for (size_t i = 0; i < count; i++)
+	size_t count = _parent ? actions_list_in_.size() : actions_list_in_.size() - 1;
+	for (size_t i = 0; i < count; ++i)
 	{
 		std::cout << actions_list_in_[i] << std::endl;
 	}
@@ -43,8 +48,8 @@ Catalog::Command* Catalog::Choose_in_actions(User& user)
 	std::cout << "Choose -->";
 	get_number(std::cin, index,
 		[size](int number) {
-			if (number < 0 || number > size) {
-				std::cout << "Your input must be >= 0 and <= " << size << std::endl;
+			if (number < 0 || number >= size) {
+				std::cout << "Your input must be >= 0 and <= " << size-1 << std::endl;
 				return 1;
 			}
 			return 0;
@@ -77,12 +82,7 @@ void Catalog::Show()
 
 	for (size_t i = 0; i < _objects.size(); i++)
 	{
-		if (_objects[i] != this) {
-			std::cout << i + 1 << "." << _objects[i]->get_name() << std::endl;
-		}
-		else {
-			std::cout << i + 1 << "." << "_current_" << std::endl;
-		}
+		std::cout << i + 1 << "." << _objects[i]->get_name() << std::endl;
 	}
 	std::cout << std::endl;
 }
@@ -177,4 +177,9 @@ Catalog::Command* Catalog::Create_Catalog(const User& user)
 Catalog::Command* Catalog::BackUp(const User& user)
 {
 	return back_up_command;
+}
+
+Catalog::Command* Catalog::LogOut(const User& user)
+{
+	return log_out_command;
 }

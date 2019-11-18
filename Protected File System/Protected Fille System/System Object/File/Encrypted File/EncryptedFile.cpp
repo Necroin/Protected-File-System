@@ -1,5 +1,17 @@
 #include "EncryptedFile.h"
 
+EncryptedFile::EncryptedFile(User* owner, Date date, Time time, std::string path, std::string name) : CommonFile(owner, date, time, path, name)
+{
+}
+
+EncryptedFile::~EncryptedFile()
+{
+}
+
+void EncryptedFile::Destroy_all_commands()
+{
+}
+
 EncryptedFile::Command* EncryptedFile::Open(const User& user)
 {
 	return nullptr;
@@ -25,9 +37,7 @@ EncryptedFile::Command* EncryptedFile::Decrypt(const User& user)
 	return nullptr;
 }
 
-EncryptedFile::EncryptedFile(User* owner, Date date, Time time, std::string path, std::string name) : CommonFile(owner, date, time, path, name)
-{
-}
+
 
 const std::vector<std::string>& EncryptedFile::get_actions_list() const
 {

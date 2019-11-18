@@ -9,7 +9,6 @@ class CommonFile : public SystemObject
 public:
 	class OpenCommand;
 	class CopyCommand;
-	class MoveCommand;
 	class DeleteCommand;
 	class EncryptCommand;
 protected:
@@ -47,6 +46,9 @@ private:
 public:
 	CommonFile(User* owner, Date date, Time time, std::string path, std::string name = "New File");
 
+	virtual ~CommonFile();
+	static void Destroy_all_commands();
+
 	virtual const std::vector<std::string>& get_actions_list() const override;
 	virtual Command* get_command(size_t index, const User& user) override;
 	virtual void Show();
@@ -57,6 +59,6 @@ public:
 
 class CommonFile::DeleteCommand : public Command
 {
-	virtual bool execute(SystemObject*& catalog, SystemObject*& object) override;
+	virtual bool execute(SystemObject*& catalog, SystemObject*& object, User*& user) override;
 };
 #endif

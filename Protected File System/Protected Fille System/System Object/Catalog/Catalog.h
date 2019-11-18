@@ -13,6 +13,7 @@ public:
 	class CreateFileCommand;
 	class CreateCatalogCommand;
 	class BackUpCommand;
+	class LogOutCommand;
 private:
 	inline static OpenCommand* open_command;
 	inline static CopyCommand* copy_command;
@@ -20,6 +21,8 @@ private:
 	inline static CreateFileCommand* create_file_command;
 	inline static CreateCatalogCommand* create_catalog_command;
 	inline static BackUpCommand* back_up_command;
+	inline static LogOutCommand* log_out_command;
+
 
 	std::vector<SystemObject*> _objects;
 	Catalog* _parent = nullptr;
@@ -45,16 +48,18 @@ private:
 	};
 
 	inline static const std::vector<std::string> actions_list_in_ = {
-	"0.Cancel",
-	"1.Create File",
-	"2.Create Catalog",
-	"3.Back Up"
+		"0.Cancel",
+		"1.Create File",
+		"2.Create Catalog",
+		"3.Log out",
+		"4.Back Up"
 	};
 
-	fptr actions_in_[4] = {
+	fptr actions_in_[5] = {
 		&Catalog::Cancel,
 		&Catalog::Create_File,
 		&Catalog::Create_Catalog,
+		&Catalog::LogOut,
 		&Catalog::BackUp
 	};
 
@@ -65,10 +70,12 @@ private:
 	Command* Create_File(const User& user);
 	Command* Create_Catalog(const User& user);
 	Command* BackUp(const User& user);
+	Command* LogOut(const User& user);
 public:
 	Catalog(Catalog* parent, Date date, Time time, std::string path, std::string name = "New Folder");
 
 	~Catalog();
+	static void Destroy_all_commands();
 
 	virtual const std::vector<std::string>& get_actions_list() const override;
 	virtual Command* get_command(size_t index, const User& user) override;
@@ -91,31 +98,36 @@ public:
 
 class Catalog::OpenCommand : public Command
 {
-public: virtual bool execute(SystemObject*& catalog, SystemObject*& object) override;
+public: virtual bool execute(SystemObject*& catalog, SystemObject*& object, User*& user) override;
 };
 
 class Catalog::CopyCommand : public Command
 {
-public: virtual bool execute(SystemObject*& catalog, SystemObject*& object) override;
+public: virtual bool execute(SystemObject*& catalog, SystemObject*& object, User*& user) override;
 };
 
 class Catalog::DeleteCommand : public Command
 {
-public: virtual bool execute(SystemObject*& catalog, SystemObject*& object) override;
+public: virtual bool execute(SystemObject*& catalog, SystemObject*& object, User*& user) override;
 };
 
 class Catalog::CreateFileCommand : public Command
 {
-public: virtual bool execute(SystemObject*& catalog, SystemObject*& object) override;
+public: virtual bool execute(SystemObject*& catalog, SystemObject*& object, User*& user) override;
 };
 
 class Catalog::CreateCatalogCommand : public Command
 {
-public: virtual bool execute(SystemObject*& catalog, SystemObject*& object) override;
+public: virtual bool execute(SystemObject*& catalog, SystemObject*& object, User*& user) override;
 };
 
 class Catalog::BackUpCommand : public Command
 {
-public: virtual bool execute(SystemObject*& catalog, SystemObject*& object) override;
+public: virtual bool execute(SystemObject*& catalog, SystemObject*& object, User*& user) override;
+};
+
+class Catalog::LogOutCommand : public Command
+{
+public: virtual bool execute(SystemObject*& catalog, SystemObject*& object, User*& user) override;
 };
 #endif

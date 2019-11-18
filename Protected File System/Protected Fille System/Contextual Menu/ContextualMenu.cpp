@@ -18,8 +18,8 @@ SystemObject::Command* ContextualMenu::Choose()
 	std::cout << "Choose -->";
 	get_number(std::cin, index,
 		[size](int number) {
-			if (number < 0 || number > size) {
-				std::cout << "Your input must be >= 0 and <= " << size << std::endl;
+			if (number < 0 || number >= size) {
+				std::cout << "Your input must be >= 0 and <= " << size-1 << std::endl;
 				return 1;
 			}
 			return 0;

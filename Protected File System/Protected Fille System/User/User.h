@@ -21,6 +21,7 @@ private:
 	std::string _name;
 	std::vector<SystemObject*> _files;
 public:
+	User(std::string name);
 	size_t getID() const;
 	std::string get_name();
 	bool can_read();

@@ -33,6 +33,7 @@ protected:
 public:
 	SystemObject(Date date, Time time, std::string path, std::string name);
 	virtual ~SystemObject();
+	static void Destroy_all_commands();
 
 	// Setters
 	SystemObject& set_time (const Time&   time);
@@ -57,25 +58,25 @@ public:
 
 class SystemObject::Command {
 public:
-	virtual bool execute(SystemObject*& catalog, SystemObject*& object);
+	virtual bool execute(SystemObject*& catalog, SystemObject*& object, User*& user);
 };
 
 class SystemObject::ErrorMessageCommand : Command
 {
 private:
 	std::string _message;
-	virtual bool execute(SystemObject*& catalog, SystemObject*& object) override;
+	virtual bool execute(SystemObject*& catalog, SystemObject*& object, User*& user) override;
 	void set_message(std::string message) { _message = message; }
 };
 
 class SystemObject::RenameCommand : public Command
 {
-public: virtual bool execute(SystemObject*& catalog, SystemObject*& object) override;
+public: virtual bool execute(SystemObject*& catalog, SystemObject*& object, User*& user) override;
 };
 
 class SystemObject::MoveCommand : public Command
 {
-public: virtual bool execute(SystemObject*& catalog, SystemObject*& object) override;
+public: virtual bool execute(SystemObject*& catalog, SystemObject*& object, User*& user) override;
 };
 #endif
 

@@ -39,6 +39,10 @@ SystemObject::SystemObject(Date date, Time time, std::string path, std::string n
 
 SystemObject::~SystemObject()
 {
+}
+
+void SystemObject::Destroy_all_commands()
+{
 	delete null_command;
 	delete rename_command;
 	delete move_command;

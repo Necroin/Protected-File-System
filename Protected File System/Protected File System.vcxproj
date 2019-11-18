@@ -128,6 +128,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Protected Fille System\Contextual Menu\ContextualMenu.cpp" />
     <ClCompile Include="Protected Fille System\File System\FileSystem.cpp" />
+    <ClCompile Include="Protected Fille System\File System\LogOn.cpp" />
     <ClCompile Include="Protected Fille System\System Object\Catalog\Catalog.cpp" />
     <ClCompile Include="Protected Fille System\System Object\Catalog\CatalogCommands.cpp" />
     <ClCompile Include="Protected Fille System\System Object\File\Common File\CommonFile.cpp" />

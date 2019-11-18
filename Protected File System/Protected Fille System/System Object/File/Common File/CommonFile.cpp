@@ -1,5 +1,18 @@
 #include "CommonFile.h"
 
+CommonFile::CommonFile(User* owner, Date date, Time time, std::string path, std::string name) : SystemObject(date, time, path, name), _owner(owner)
+{
+
+}
+
+CommonFile::~CommonFile()
+{
+}
+
+void CommonFile::Destroy_all_commands()
+{
+}
+
 CommonFile::Command* CommonFile::Open(const User& user)
 {
 	return nullptr;
@@ -25,10 +38,7 @@ CommonFile::Command* CommonFile::Encrypt(const User& user)
 	return nullptr;
 }
 
-CommonFile::CommonFile(User* owner,Date date, Time time, std::string path, std::string name) : SystemObject(date, time, path, name), _owner(owner)
-{
 
-}
 
 const std::vector<std::string>& CommonFile::get_actions_list() const
 {

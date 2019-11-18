@@ -38,6 +38,8 @@ private:
 	Command* Decrypt(const User& user);
 public:
 	EncryptedFile(User* owner, Date date, Time time, std::string path, std::string name = "New Encr_File");
+	~EncryptedFile();
+	static void Destroy_all_commands();
 
 	virtual const std::vector<std::string>& get_actions_list() const override;
 	virtual Command* get_command(size_t index, const User& user) override;

@@ -1,6 +1,10 @@
 #include "User.h"
 #include "../System Object/SystemObject.h"
 
+User::User(std::string name) : _name(name)
+{
+}
+
 size_t User::getID() const
 {
 	return ID;

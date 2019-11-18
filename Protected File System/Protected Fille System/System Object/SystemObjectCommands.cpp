@@ -2,15 +2,15 @@
 #include "Catalog/Catalog.h"
 
 
-bool SystemObject::Command::execute(SystemObject*& catalog, SystemObject*& object) { return true; }
+bool SystemObject::Command::execute(SystemObject*& catalog, SystemObject*& object, User*& user) { return true; }
 
-bool SystemObject::ErrorMessageCommand::execute(SystemObject*& catalog, SystemObject*& object)
+bool SystemObject::ErrorMessageCommand::execute(SystemObject*& catalog, SystemObject*& object, User*& user)
 {
 	std::cout << _message << std::endl;
 	return true;
 }
 
-bool SystemObject::RenameCommand::execute(SystemObject*& catalog, SystemObject*& object)
+bool SystemObject::RenameCommand::execute(SystemObject*& catalog, SystemObject*& object, User*& user)
 {
 	std::string new_name;
 	std::cout << "Enter new name --> ";
@@ -27,7 +27,7 @@ bool SystemObject::RenameCommand::execute(SystemObject*& catalog, SystemObject*&
 }
 
 
-bool SystemObject::MoveCommand::execute(SystemObject*& catalog, SystemObject*& object)
+bool SystemObject::MoveCommand::execute(SystemObject*& catalog, SystemObject*& object, User*& user)
 {
 	//implementation
 	return true;
