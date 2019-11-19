@@ -1,9 +1,16 @@
 #include "FileSystem.h"
 
-FileSystem::FileSystem(std::string path, std::string name) {
+FileSystem::FileSystem(const char* paths) {
 	auto t = SystemObject::get_current_date_and_time();
-	root_catalog = new Catalog(nullptr, t.first, t.second, path, name);
+	root_catalog = new Catalog(nullptr, t.first, t.second, "", "\\");
 	cur_catalog = root_catalog;
+
+	std::ifstream Paths_file(paths);
+	std::getline(Paths_file, Data_file_path);
+	std::getline(Paths_file, FreeDataBlocks_file_path);
+	std::getline(Paths_file, Descriptors_file_path);
+	std::getline(Paths_file, Users_file_path);
+	Paths_file.close();
 }
 
 FileSystem::~FileSystem()
@@ -21,11 +28,12 @@ FileSystem::~FileSystem()
 
 void FileSystem::start()
 {
-
+	load_users();
 }
 
 void FileSystem::run()
 {
+	_active = true;
 	while (_active)
 	{
 		if (cur_user) {
@@ -52,4 +60,5 @@ void FileSystem::run()
 
 void FileSystem::stop()
 {
+	save_users();
 }

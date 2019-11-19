@@ -3,6 +3,7 @@
 #define _USER_H_
 #include <string>
 #include <vector>
+#include <iostream>
 
 struct AccessSpecifiers
 {
@@ -22,10 +23,27 @@ private:
 	std::vector<SystemObject*> _files;
 public:
 	User(std::string name);
+	User();
+	inline static const size_t max_name_lenght = 20;
 	size_t getID() const;
-	std::string get_name();
+	const std::string& get_name() const;
 	bool can_read();
 	bool can_write();
 	bool can_run();
+
+	friend std::istream& operator>>(std::istream& in, User& user);
+	friend std::ostream& operator<<(std::ostream& out, const User& user);
 };
-#endif 
+#endif
+
+inline std::istream& operator>>(std::istream& in, User& user)
+{
+	in >> user._name;
+	return in;
+}
+
+inline std::ostream& operator<<(std::ostream& out, const User& user)
+{
+	out << user._name;
+	return out;
+}

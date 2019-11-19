@@ -87,6 +87,9 @@
     <ClCompile Include="Protected Fille System\File System\LogOn.cpp">
       <Filter>Исходные файлы\File System</Filter>
     </ClCompile>
+    <ClCompile Include="Protected Fille System\File System\FileLoadsAndSaves.cpp">
+      <Filter>Исходные файлы\File System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Protected Fille System\Support Structures\Pair.h">

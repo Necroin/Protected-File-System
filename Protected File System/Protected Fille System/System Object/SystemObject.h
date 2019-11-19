@@ -1,10 +1,7 @@
 #pragma once
 #ifndef _SYSTEMOBJECT_H_
 #define _SYSTEMOBJECT_H_
-#include <string>
-#include <vector>
 #include <ctime>
-#include <iostream>
 #include "../Support Structures/Date.h"
 #include "../Support Structures/Time.h"
 #include "../Support Structures/Pair.h"

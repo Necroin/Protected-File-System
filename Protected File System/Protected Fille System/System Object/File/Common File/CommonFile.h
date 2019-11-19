@@ -3,6 +3,7 @@
 #define _COMMONFILE_H_
 #include "../../SystemObject.h"
 #include "../../../Stream/Stream.h"
+#include <queue>
 
 class CommonFile : public SystemObject
 {
@@ -14,6 +15,7 @@ public:
 protected:
 	std::vector<Stream> _main;
 	User* _owner;
+	inline static std::priority_queue<size_t, std::vector<size_t>, std::greater<size_t>> free_bloks;
 private:
 	typedef Command* (CommonFile::* fptr)(const User& user);
 

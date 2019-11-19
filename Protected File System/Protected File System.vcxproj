@@ -127,6 +127,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Protected Fille System\Contextual Menu\ContextualMenu.cpp" />
+    <ClCompile Include="Protected Fille System\File System\FileLoadsAndSaves.cpp" />
     <ClCompile Include="Protected Fille System\File System\FileSystem.cpp" />
     <ClCompile Include="Protected Fille System\File System\LogOn.cpp" />
     <ClCompile Include="Protected Fille System\System Object\Catalog\Catalog.cpp" />

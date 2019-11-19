@@ -3,6 +3,11 @@
 
 User::User(std::string name) : _name(name)
 {
+
+}
+
+User::User()
+{
 }
 
 size_t User::getID() const
@@ -10,7 +15,7 @@ size_t User::getID() const
 	return ID;
 }
 
-std::string User::get_name()
+const std::string& User::get_name() const
 {
 	return _name;
 }

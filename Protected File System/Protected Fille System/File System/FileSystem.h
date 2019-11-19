@@ -3,6 +3,7 @@
 #define _FILESYSTEM_H_
 #include "../System Object/Catalog/Catalog.h"
 #include "../Contextual Menu/ContextualMenu.h"
+#include <fstream>
 
 class FileSystem
 {
@@ -14,6 +15,15 @@ private:
 	std::vector<User*> _users;
 	User* cur_user = nullptr;
 
+
+	std::string Data_file_path;
+	std::string FreeDataBlocks_file_path;
+	std::string Descriptors_file_path;
+	std::string Users_file_path;
+
+
+	void load_users();
+	void save_users();
 
 	inline static const std::vector<std::string> log_on_list = {
 		"0.Close",  
@@ -32,7 +42,7 @@ private:
 	void Sign_in();
 	void Sign_up();
 public:
-	FileSystem(std::string path, std::string name);
+	FileSystem(const char* file_with_paths);
 	~FileSystem();
 
 	void start();
