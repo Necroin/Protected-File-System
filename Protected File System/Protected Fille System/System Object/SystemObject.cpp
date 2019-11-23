@@ -1,6 +1,7 @@
 #include "SystemObject.h"
 
 
+
 void SystemObject::Show()
 {
 	system("cls");
@@ -90,4 +91,26 @@ const std::string& SystemObject::get_name() const
 const std::string& SystemObject::get_path() const
 {
 	return _path;
+}
+
+std::ifstream& operator>>(std::ifstream& fin, SystemObject& object)
+{
+	object.File_Input(fin);
+	return fin;
+}
+
+void SystemObject::File_Input(std::ifstream& fin)
+{
+	fin >> _date >> _time >> _name;
+}
+
+std::ofstream& operator<<(std::ofstream& fout, const SystemObject& object)
+{
+	object.File_Output(fout);
+	return fout;
+}
+
+void SystemObject::File_Output(std::ofstream& fout) const
+{
+	fout << _date << " " << _time << " " << _name;
 }

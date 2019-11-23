@@ -71,6 +71,9 @@ private:
 	Command* Create_Catalog(const User& user);
 	Command* BackUp(const User& user);
 	Command* LogOut(const User& user);
+
+	virtual void File_Input(std::ifstream& fin) override;
+	virtual void File_Output(std::ofstream& fout) const override;
 public:
 	Catalog(Catalog* parent, Date date, Time time, std::string path, std::string name = "New Folder");
 
@@ -92,6 +95,7 @@ public:
 
 
 	SystemObject* find(std::string name);
+	std::vector<SystemObject*> find_all(std::string name);
 	void erase(SystemObject*& other);
 	void add_object(SystemObject* object);
 };

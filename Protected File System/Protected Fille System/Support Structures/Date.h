@@ -1,6 +1,7 @@
 #pragma once
 #ifndef _DATE_H_
 #define _DATE_H_
+#include <fstream>
 
 class Date
 {
@@ -11,14 +12,28 @@ public:
 	size_t month;
 	size_t year;
 
-	template <class _Output>
-	friend _Output& operator<<(_Output& out, const Date& date);
+	friend std::ostream& operator<<(std::ostream& out, const Date& date);
+	friend std::ofstream& operator<<(std::ofstream& fout, const Date& date);
+
+	friend std::ifstream& operator>>(std::ifstream& fin, Date& date);
 };
 #endif
 
-template<class _Output>
-inline _Output& operator<<(_Output& out, const Date& date)
+
+inline std::ostream& operator<<(std::ostream& out, const Date& date)
 {
 	out << "|| Day : " << date.day << " | " << "Month : " << date.month << " | " << "Year : " << date.year << " ||";
 	return out;
+}
+
+inline std::ofstream& operator<<(std::ofstream& fout, const Date& date)
+{
+	fout << date.day << " " << date.month << " " << date.year;
+	return fout;
+}
+
+inline std::ifstream& operator>>(std::ifstream& fin, Date& date)
+{
+	fin >> date.day >> date.month >> date.year;
+	return fin;
 }

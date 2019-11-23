@@ -16,6 +16,7 @@ protected:
 	std::vector<Stream> _main;
 	User* _owner;
 	inline static std::priority_queue<size_t, std::vector<size_t>, std::greater<size_t>> free_bloks;
+	inline static std::fstream data;
 private:
 	typedef Command* (CommonFile::* fptr)(const User& user);
 
@@ -45,6 +46,9 @@ private:
 	Command* Move(const User& user);
 	Command* Delete(const User& user);
 	Command* Encrypt(const User& user);
+
+	virtual void File_Input(std::ifstream& fin) override;
+	virtual void File_Output(std::ofstream& fout) const override;
 public:
 	CommonFile(User* owner, Date date, Time time, std::string path, std::string name = "New File");
 
@@ -55,7 +59,9 @@ public:
 	virtual Command* get_command(size_t index, const User& user) override;
 	virtual void Show();
 
-
+	static bool set_data_path(std::string path);
+	static bool load_free_blocks(std::string path);
+	static bool save_free_blocks(std::string path);
 };
 
 

@@ -29,6 +29,7 @@ FileSystem::~FileSystem()
 void FileSystem::start()
 {
 	load_users();
+	CommonFile::load_free_blocks(FreeDataBlocks_file_path);
 }
 
 void FileSystem::run()
@@ -61,4 +62,5 @@ void FileSystem::run()
 void FileSystem::stop()
 {
 	save_users();
+	CommonFile::save_free_blocks(FreeDataBlocks_file_path);
 }

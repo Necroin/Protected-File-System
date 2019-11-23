@@ -152,6 +152,7 @@
     <ClInclude Include="Protected Fille System\System Object\File\Encrypted File\EncryptedFile.h" />
     <ClInclude Include="Protected Fille System\System Object\SystemObject.h" />
     <ClInclude Include="Protected Fille System\User\User.h" />
+    <ClInclude Include="Protected Fille System\WinhFunc\WinhFunc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

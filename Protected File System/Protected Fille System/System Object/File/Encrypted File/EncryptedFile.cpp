@@ -37,6 +37,19 @@ EncryptedFile::Command* EncryptedFile::Decrypt(const User& user)
 	return nullptr;
 }
 
+void EncryptedFile::File_Input(std::ifstream& fin)
+{
+	std::istream& in = fin;
+	SystemObject::File_Input(fin);
+}
+
+void EncryptedFile::File_Output(std::ofstream& fout) const
+{
+	std::ostream& out = fout;
+	out << "EncryptedFile" << " ";
+	SystemObject::File_Output(fout);
+}
+
 
 
 const std::vector<std::string>& EncryptedFile::get_actions_list() const

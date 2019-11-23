@@ -124,6 +124,11 @@ SystemObject* Catalog::find(std::string name)
 	return nullptr;
 }
 
+std::vector<SystemObject*> Catalog::find_all(std::string name)
+{
+	return std::vector<SystemObject*>();
+}
+
 void Catalog::erase(SystemObject*& other)
 {
 	std::vector<SystemObject*>::iterator erase_it = _objects.begin();
@@ -182,4 +187,17 @@ Catalog::Command* Catalog::BackUp(const User& user)
 Catalog::Command* Catalog::LogOut(const User& user)
 {
 	return log_out_command;
+}
+
+void Catalog::File_Input(std::ifstream& fin)
+{
+	std::istream& in = fin;
+	SystemObject::File_Input(fin);
+}
+
+void Catalog::File_Output(std::ofstream& fout) const
+{
+	std::ostream& out = fout;
+	out << "Catalog" << " ";
+	SystemObject::File_Output(fout);
 }

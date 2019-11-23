@@ -36,6 +36,9 @@ private:
 	Command* Move(const User& user);
 	Command* Delete(const User& user);
 	Command* Decrypt(const User& user);
+
+	virtual void File_Input(std::ifstream& fin) override;
+	virtual void File_Output(std::ofstream& fout) const override;
 public:
 	EncryptedFile(User* owner, Date date, Time time, std::string path, std::string name = "New Encr_File");
 	~EncryptedFile();

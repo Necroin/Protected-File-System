@@ -20,6 +20,8 @@ protected:
 	std::string _name;
 	std::string _path;
 
+	std::vector<std::pair<ID, AccessSpecifiers>> users_access;
+
 	inline static Command *null_command;
 	inline static RenameCommand* rename_command;
 	inline static MoveCommand* move_command;
@@ -27,6 +29,9 @@ protected:
 	Command* Cancel(const User& user);
 	Command* Rename(const User& user);
 
+
+	virtual void File_Input(std::ifstream& fin);
+	virtual void File_Output(std::ofstream& fout) const;
 public:
 	SystemObject(Date date, Time time, std::string path, std::string name);
 	virtual ~SystemObject();
@@ -51,6 +56,9 @@ public:
 	virtual void Show();
 
 	static Pair<Date, Time> get_current_date_and_time();
+
+	friend std::ifstream& operator >> (std::ifstream& fin, SystemObject& object);
+	friend std::ofstream& operator << (std::ofstream& fout, const SystemObject& object);
 };
 
 class SystemObject::Command {

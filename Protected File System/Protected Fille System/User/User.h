@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 struct AccessSpecifiers
 {
@@ -14,36 +15,37 @@ struct AccessSpecifiers
 
 class SystemObject;
 
+using ID = size_t;
+
 class User 
 {
 private:
-	inline static size_t ID;
-	AccessSpecifiers access;
+	ID _id;
 	std::string _name;
 	std::vector<SystemObject*> _files;
 public:
 	User(std::string name);
 	User();
 	inline static const size_t max_name_lenght = 20;
+	inline static ID last_free_id;
 	size_t getID() const;
 	const std::string& get_name() const;
-	bool can_read();
-	bool can_write();
-	bool can_run();
 
-	friend std::istream& operator>>(std::istream& in, User& user);
-	friend std::ostream& operator<<(std::ostream& out, const User& user);
+	friend std::ifstream& operator>>(std::ifstream& fin, User& user);
+	friend std::ofstream& operator<<(std::ofstream& fout, const User& user);
 };
 #endif
 
-inline std::istream& operator>>(std::istream& in, User& user)
+inline std::ifstream& operator>>(std::ifstream& fin, User& user)
 {
-	in >> user._name;
-	return in;
+	std::istream& in = fin;
+	in >> user._name >> user._id;
+	return fin;
 }
 
-inline std::ostream& operator<<(std::ostream& out, const User& user)
+inline std::ofstream& operator<<(std::ofstream& fout, const User& user)
 {
-	out << user._name;
-	return out;
+	std::ostream& out = fout;
+	out << user._name << " " << user._id;
+	return fout;
 }
