@@ -23,3 +23,14 @@ void FileSystem::save_users()
 	}
 	Users.close();
 }
+
+void FileSystem::load_descriptors()
+{
+}
+
+void FileSystem::save_descriptors()
+{
+	std::ofstream Descriptors(Descriptors_file_path,std::ios_base::trunc);
+	Descriptors << *root_catalog;
+	Descriptors.close();
+}

@@ -4,15 +4,9 @@
 Catalog::Catalog(Catalog* parent, Date date, Time time, std::string path, std::string name) :
 	SystemObject(date, time, path, name),
 	_parent(parent)
-{
-	open_command           = new OpenCommand;
-	copy_command           = new CopyCommand;
-	delete_command         = new DeleteCommand;
-	create_file_command    = new CreateFileCommand;
-	create_catalog_command = new CreateCatalogCommand;
-	back_up_command        = new BackUpCommand;
-	log_out_command        = new LogOutCommand;
-}
+{}
+
+Catalog::Catalog() {}
 
 Catalog::~Catalog()
 {
@@ -30,6 +24,17 @@ void Catalog::Destroy_all_commands()
 	delete create_file_command;
 	delete create_catalog_command;
 	delete back_up_command;
+}
+
+void Catalog::Init_all_commands()
+{
+	open_command = new OpenCommand;
+	copy_command = new CopyCommand;
+	delete_command = new DeleteCommand;
+	create_file_command = new CreateFileCommand;
+	create_catalog_command = new CreateCatalogCommand;
+	back_up_command = new BackUpCommand;
+	log_out_command = new LogOutCommand;
 }
 
 void Catalog::Show_in_actions()
@@ -200,4 +205,11 @@ void Catalog::File_Output(std::ofstream& fout) const
 	std::ostream& out = fout;
 	out << "Catalog" << " ";
 	SystemObject::File_Output(fout);
+	out << std::endl;
+	size_t size = _objects.size();
+	out << size << std::endl;
+	for (size_t i = 0; i < size; ++i)
+	{
+		fout << (*_objects[i]) << std::endl;
+	}
 }

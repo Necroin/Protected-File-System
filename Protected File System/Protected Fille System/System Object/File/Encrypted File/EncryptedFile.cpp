@@ -12,6 +12,10 @@ void EncryptedFile::Destroy_all_commands()
 {
 }
 
+void EncryptedFile::Init_all_commands()
+{
+}
+
 EncryptedFile::Command* EncryptedFile::Open(const User& user)
 {
 	return nullptr;

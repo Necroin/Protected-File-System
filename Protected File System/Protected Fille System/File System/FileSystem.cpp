@@ -11,6 +11,11 @@ FileSystem::FileSystem(const char* paths) {
 	std::getline(Paths_file, Descriptors_file_path);
 	std::getline(Paths_file, Users_file_path);
 	Paths_file.close();
+
+	SystemObject::Init_all_commands();
+	Catalog::Init_all_commands();
+	CommonFile::Init_all_commands();
+	EncryptedFile::Init_all_commands();
 }
 
 FileSystem::~FileSystem()
@@ -20,10 +25,10 @@ FileSystem::~FileSystem()
 	{
 		delete _users[i];
 	}
+	SystemObject::Destroy_all_commands();
 	Catalog::Destroy_all_commands();
 	CommonFile::Destroy_all_commands();
 	EncryptedFile::Destroy_all_commands();
-	SystemObject::Destroy_all_commands();
 }
 
 void FileSystem::start()
@@ -63,4 +68,5 @@ void FileSystem::stop()
 {
 	save_users();
 	CommonFile::save_free_blocks(FreeDataBlocks_file_path);
+	save_descriptors();
 }

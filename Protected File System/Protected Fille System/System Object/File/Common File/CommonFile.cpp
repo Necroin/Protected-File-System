@@ -13,6 +13,10 @@ void CommonFile::Destroy_all_commands()
 {
 }
 
+void CommonFile::Init_all_commands()
+{
+}
+
 CommonFile::Command* CommonFile::Open(const User& user)
 {
 	return nullptr;

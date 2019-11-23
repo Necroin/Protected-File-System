@@ -76,9 +76,11 @@ private:
 	virtual void File_Output(std::ofstream& fout) const override;
 public:
 	Catalog(Catalog* parent, Date date, Time time, std::string path, std::string name = "New Folder");
+	Catalog();
 
 	~Catalog();
 	static void Destroy_all_commands();
+	static void Init_all_commands();
 
 	virtual const std::vector<std::string>& get_actions_list() const override;
 	virtual Command* get_command(size_t index, const User& user) override;

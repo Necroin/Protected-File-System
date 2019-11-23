@@ -25,6 +25,9 @@ private:
 	void load_users();
 	void save_users();
 
+	void load_descriptors();
+	void save_descriptors();
+
 	inline static const std::vector<std::string> log_on_list = {
 		"0.Close",  
 		"1.Sign in",

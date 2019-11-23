@@ -34,8 +34,10 @@ protected:
 	virtual void File_Output(std::ofstream& fout) const;
 public:
 	SystemObject(Date date, Time time, std::string path, std::string name);
+	SystemObject();
 	virtual ~SystemObject();
 	static void Destroy_all_commands();
+	static void Init_all_commands();
 
 	// Setters
 	SystemObject& set_time (const Time&   time);

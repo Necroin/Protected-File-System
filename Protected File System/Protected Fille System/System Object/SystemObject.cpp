@@ -32,21 +32,24 @@ SystemObject::SystemObject(Date date, Time time, std::string path, std::string n
 	_time(time),
 	_path(path),
 	_name(name)
-{
-	null_command   = new Command;
-	rename_command = new RenameCommand;
-	move_command   = new MoveCommand;
-}
+{}
 
-SystemObject::~SystemObject()
-{
-}
+SystemObject::SystemObject() {}
+
+SystemObject::~SystemObject() {}
 
 void SystemObject::Destroy_all_commands()
 {
 	delete null_command;
 	delete rename_command;
 	delete move_command;
+}
+
+void SystemObject::Init_all_commands()
+{
+	null_command = new Command;
+	rename_command = new RenameCommand;
+	move_command = new MoveCommand;
 }
 
 SystemObject& SystemObject::set_time(const Time & time)
