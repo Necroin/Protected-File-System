@@ -67,5 +67,5 @@ void FileSystem::Sign_up()
 	std::string name;
 	std::cout << "Enter name of new profile --> ";
 	std::cin >> name;
-	_users.push_back(new User(name));
+	_users.add(new User(name));
 }

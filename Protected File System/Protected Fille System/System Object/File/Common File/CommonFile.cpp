@@ -1,9 +1,12 @@
 #include "CommonFile.h"
+#include "../../../User/Table/UsersTable.h"
+
 
 CommonFile::CommonFile(User* owner, Date date, Time time, std::string path, std::string name) : SystemObject(date, time, path, name), _owner(owner)
-{
+{}
 
-}
+CommonFile::CommonFile(std::string path) : SystemObject(path)
+{}
 
 CommonFile::~CommonFile()
 {
@@ -46,6 +49,12 @@ void CommonFile::File_Input(std::ifstream& fin)
 {
 	std::istream& in = fin;
 	SystemObject::File_Input(fin);
+	ID owner_id;
+	in >> owner_id;
+	_owner = UsersTable::find(owner_id);
+	if (_owner) {
+		_owner->add_file(this);
+	}
 }
 
 void CommonFile::File_Output(std::ofstream& fout) const
@@ -53,6 +62,9 @@ void CommonFile::File_Output(std::ofstream& fout) const
 	std::ostream& out = fout;
 	out << "CommonFile" << " ";
 	SystemObject::File_Output(fout);
+	out << _owner->getID();
+	// END
+	out << std::endl;
 }
 
 
@@ -79,6 +91,11 @@ void CommonFile::Show()
 {
 	SystemObject::Show();
 	std::cout << "Common file : " << _name << std::endl;
+}
+
+const std::string& CommonFile::get_object_type() const
+{
+	return _type;
 }
 
 bool CommonFile::set_data_path(std::string path)

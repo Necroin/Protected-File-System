@@ -7,7 +7,7 @@ void FileSystem::load_users()
 	Users >> User::last_free_id;
 	while (Users >> user)
 	{
-		_users.push_back(new User(user));
+		_users.add(new User(user));
 	}
 	Users.close();
 }
@@ -26,6 +26,18 @@ void FileSystem::save_users()
 
 void FileSystem::load_descriptors()
 {
+	std::ifstream Descriptors(Descriptors_file_path);
+	std::string root_type;
+	if (Descriptors >> root_type) {
+		if (root_type == "Catalog") {
+			Descriptors >> *root_catalog;
+		}
+		else {
+			_active = false;
+			throw std::exception("Descriptors corrupted");
+		}
+	}
+	Descriptors.close();
 }
 
 void FileSystem::save_descriptors()

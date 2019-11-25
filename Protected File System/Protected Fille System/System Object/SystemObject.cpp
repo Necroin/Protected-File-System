@@ -36,6 +36,9 @@ SystemObject::SystemObject(Date date, Time time, std::string path, std::string n
 
 SystemObject::SystemObject() {}
 
+SystemObject::SystemObject(std::string path) : _path(path)
+{}
+
 SystemObject::~SystemObject() {}
 
 void SystemObject::Destroy_all_commands()
@@ -105,6 +108,16 @@ std::ifstream& operator>>(std::ifstream& fin, SystemObject& object)
 void SystemObject::File_Input(std::ifstream& fin)
 {
 	fin >> _date >> _time >> _name;
+	size_t Id_count;
+	fin >> Id_count;
+	for (size_t i = 0; i < Id_count; ++i)
+	{
+		ID id;
+		AccessSpecifiers access;
+		fin >> id;
+		fin >> access;
+		users_access.push_back(std::pair<ID, AccessSpecifiers>{id, access});
+	}
 }
 
 std::ofstream& operator<<(std::ofstream& fout, const SystemObject& object)
@@ -115,5 +128,16 @@ std::ofstream& operator<<(std::ofstream& fout, const SystemObject& object)
 
 void SystemObject::File_Output(std::ofstream& fout) const
 {
-	fout << _date << " " << _time << " " << _name;
+	fout << _date << " ";
+	fout << _time << " ";
+	static_cast<std::ostream&>(fout) << _name;
+	fout << std::endl;
+	size_t Id_count = users_access.size();
+	fout << Id_count << std::endl;
+	for (size_t i = 0; i < Id_count; ++i)
+	{
+		auto pair = users_access[i];
+		fout << pair.first << " ";
+		fout << pair.second << std::endl;
+	}
 }

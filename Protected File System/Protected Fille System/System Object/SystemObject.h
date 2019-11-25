@@ -35,6 +35,7 @@ protected:
 public:
 	SystemObject(Date date, Time time, std::string path, std::string name);
 	SystemObject();
+	SystemObject(std::string path);
 	virtual ~SystemObject();
 	static void Destroy_all_commands();
 	static void Init_all_commands();
@@ -50,6 +51,7 @@ public:
 	const Date&   get_date () const;
 	const std::string& get_name () const;
 	const std::string& get_path () const;
+	virtual const std::string& get_object_type() const = 0;
 
 	virtual const std::vector<std::string>& get_actions_list() const = 0;
 	virtual Command* get_command(size_t index, const User& user) = 0;

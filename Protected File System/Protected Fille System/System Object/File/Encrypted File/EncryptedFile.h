@@ -8,6 +8,7 @@ class EncryptedFile : public CommonFile
 protected:
 	std::vector<Stream> _symkey;
 private:
+	inline static const std::string _type = "Encrypted File";
 
 	typedef Command* (EncryptedFile::* fptr)(const User& user);
 
@@ -40,7 +41,7 @@ private:
 	virtual void File_Input(std::ifstream& fin) override;
 	virtual void File_Output(std::ofstream& fout) const override;
 public:
-	EncryptedFile(User* owner, Date date, Time time, std::string path, std::string name = "New Encr_File");
+	EncryptedFile(User* owner, Date date, Time time, std::string path, std::string name);
 	~EncryptedFile();
 	static void Destroy_all_commands();
 	static void Init_all_commands();
@@ -48,7 +49,6 @@ public:
 	virtual const std::vector<std::string>& get_actions_list() const override;
 	virtual Command* get_command(size_t index, const User& user) override;
 	virtual void Show();
-
-
+	virtual const std::string& get_object_type() const override;
 };
 #endif

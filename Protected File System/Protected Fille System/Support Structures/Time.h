@@ -11,7 +11,7 @@ public:
 	size_t hour;
 	size_t minute;
 
-	friend std::ostream& operator<<(std::ostream& out, const Time& date);
+	friend std::ostream& operator<<(std::ostream& out, const Time& time);
 	friend std::ofstream& operator<<(std::ofstream& fout, const Time& time);
 
 	friend std::ifstream& operator>>(std::ifstream& fin, Time& time);
@@ -27,11 +27,11 @@ inline std::ostream& operator<<(std::ostream& out, const Time& time)
 inline std::ofstream& operator<<(std::ofstream& fout, const Time& time)
 {
 	fout << time.hour << " " << time.minute;
-	return fout;
+	return static_cast<std::ofstream&>(fout);
 }
 
 inline std::ifstream& operator>>(std::ifstream& fin, Time& time)
 {
 	fin >> time.hour >> time.minute;
-	return fin;
+	return static_cast<std::ifstream&>(fin);
 }

@@ -23,7 +23,7 @@ private:
 	inline static BackUpCommand* back_up_command;
 	inline static LogOutCommand* log_out_command;
 
-
+	inline static const std::string _type = "Catalog";
 	std::vector<SystemObject*> _objects;
 	Catalog* _parent = nullptr;
 	typedef Command* (Catalog::* fptr)(const User& user);
@@ -75,8 +75,8 @@ private:
 	virtual void File_Input(std::ifstream& fin) override;
 	virtual void File_Output(std::ofstream& fout) const override;
 public:
-	Catalog(Catalog* parent, Date date, Time time, std::string path, std::string name = "New Folder");
-	Catalog();
+	Catalog(Catalog* parent, Date date, Time time, std::string path, std::string name);
+	Catalog(Catalog* parent, std::string path);
 
 	~Catalog();
 	static void Destroy_all_commands();
@@ -84,6 +84,7 @@ public:
 
 	virtual const std::vector<std::string>& get_actions_list() const override;
 	virtual Command* get_command(size_t index, const User& user) override;
+	virtual const std::string& get_object_type() const override;
 
 	void Show_in_actions();
 	Command* Choose_in_actions(User& user);

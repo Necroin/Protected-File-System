@@ -17,3 +17,8 @@ const std::string& User::get_name() const
 {
 	return _name;
 }
+
+void User::add_file(SystemObject* file)
+{
+	_files.push_back(file);
+}

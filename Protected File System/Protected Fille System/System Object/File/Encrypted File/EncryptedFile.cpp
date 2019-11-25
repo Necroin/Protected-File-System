@@ -52,6 +52,7 @@ void EncryptedFile::File_Output(std::ofstream& fout) const
 	std::ostream& out = fout;
 	out << "EncryptedFile" << " ";
 	SystemObject::File_Output(fout);
+	out << std::endl;
 }
 
 
@@ -78,4 +79,9 @@ void EncryptedFile::Show()
 {
 	SystemObject::Show();
 	std::cout << "Encrypted file : " << _name << std::endl;
+}
+
+const std::string& EncryptedFile::get_object_type() const
+{
+	return _type;
 }

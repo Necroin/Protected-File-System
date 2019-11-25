@@ -3,6 +3,7 @@
 #define _FILESYSTEM_H_
 #include "../System Object/Catalog/Catalog.h"
 #include "../Contextual Menu/ContextualMenu.h"
+#include "../User/Table/UsersTable.h"
 #include <fstream>
 
 class FileSystem
@@ -12,7 +13,7 @@ private:
 	SystemObject* cur_catalog = nullptr;
 	bool _active = true;
 
-	std::vector<User*> _users;
+	UsersTable _users;
 	User* cur_user = nullptr;
 
 

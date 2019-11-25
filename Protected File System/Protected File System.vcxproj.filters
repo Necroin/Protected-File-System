@@ -52,6 +52,9 @@
     <Filter Include="Исходные файлы\Winh">
       <UniqueIdentifier>{92a02374-ccbf-4d3b-b880-ae9d41670f34}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\User\Table">
+      <UniqueIdentifier>{d3ec1d80-e7ee-43f6-8ba1-66d78c828eb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Protected Fille System\System Object\Catalog\Catalog.cpp">
@@ -93,6 +96,9 @@
     <ClCompile Include="Protected Fille System\File System\FileLoadsAndSaves.cpp">
       <Filter>Исходные файлы\File System</Filter>
     </ClCompile>
+    <ClCompile Include="Protected Fille System\User\Table\UsersTable.cpp">
+      <Filter>Исходные файлы\User\Table</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Protected Fille System\Support Structures\Pair.h">
@@ -133,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="Protected Fille System\WinhFunc\WinhFunc.h">
       <Filter>Исходные файлы\Winh</Filter>
+    </ClInclude>
+    <ClInclude Include="Protected Fille System\User\Table\UsersTable.h">
+      <Filter>Исходные файлы\User\Table</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

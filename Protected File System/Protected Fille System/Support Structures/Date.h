@@ -29,11 +29,11 @@ inline std::ostream& operator<<(std::ostream& out, const Date& date)
 inline std::ofstream& operator<<(std::ofstream& fout, const Date& date)
 {
 	fout << date.day << " " << date.month << " " << date.year;
-	return fout;
+	return static_cast<std::ofstream&>(fout);
 }
 
 inline std::ifstream& operator>>(std::ifstream& fin, Date& date)
 {
 	fin >> date.day >> date.month >> date.year;
-	return fin;
+	return static_cast<std::ifstream&>(fin);
 }

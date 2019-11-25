@@ -6,7 +6,10 @@ Catalog::Catalog(Catalog* parent, Date date, Time time, std::string path, std::s
 	_parent(parent)
 {}
 
-Catalog::Catalog() {}
+Catalog::Catalog(Catalog * parent, std::string path) :
+	SystemObject(path),
+	_parent(parent)
+{}
 
 Catalog::~Catalog()
 {
@@ -77,6 +80,11 @@ Catalog::Command* Catalog::get_command(size_t index, const User& user)
 	return null_command;
 }
 
+const std::string& Catalog::get_object_type() const
+{
+	return _type;
+}
+
 void Catalog::Show()
 {
 	SystemObject::Show();
@@ -87,7 +95,7 @@ void Catalog::Show()
 
 	for (size_t i = 0; i < _objects.size(); i++)
 	{
-		std::cout << i + 1 << "." << _objects[i]->get_name() << std::endl;
+		std::cout << i + 1 << "." << "(" << _objects[i]->get_object_type() << ") " << _objects[i]->get_name() << std::endl;
 	}
 	std::cout << std::endl;
 }
@@ -198,6 +206,31 @@ void Catalog::File_Input(std::ifstream& fin)
 {
 	std::istream& in = fin;
 	SystemObject::File_Input(fin);
+	size_t size;
+	std::string path = _path;
+	path.append(_name);
+	path.append("\\");
+	std::string object_type;
+	fin >> size;
+	for (size_t i = 0; i < size; i++)
+	{
+		SystemObject* object = nullptr;
+		fin >> object_type;
+		if (object_type == "Catalog") {
+			object = new Catalog(this, path);
+
+		}
+		else if (object_type == "CommonFile") {
+			object = new CommonFile(path);
+		}
+		else if (object_type == "EncryptedFile") {
+		}
+		else {
+			throw std::exception("Descriptors corrupted");
+		}
+		fin >> *object;
+		_objects.push_back(object);
+	}
 }
 
 void Catalog::File_Output(std::ofstream& fout) const
@@ -205,11 +238,10 @@ void Catalog::File_Output(std::ofstream& fout) const
 	std::ostream& out = fout;
 	out << "Catalog" << " ";
 	SystemObject::File_Output(fout);
-	out << std::endl;
 	size_t size = _objects.size();
 	out << size << std::endl;
 	for (size_t i = 0; i < size; ++i)
 	{
-		fout << (*_objects[i]) << std::endl;
+		fout << (*_objects[i]);
 	}
 }

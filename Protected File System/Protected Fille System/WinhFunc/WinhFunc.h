@@ -15,3 +15,13 @@ COORD GetConsoleCursorPosition(HANDLE hConsoleOutput)
 		return invalid;
 	}
 }
+
+void gotoxy(HANDLE hConsole, int x, int y) {
+	COORD coordinates = { x,y };
+	SetConsoleCursorPosition(hConsole, coordinates);
+}
+
+void gotoxy(int x, int y) {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	gotoxy(hConsole, x, y);
+}
