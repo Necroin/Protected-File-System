@@ -16,7 +16,7 @@ SystemObject::Command* ContextualMenu::Choose()
 {
 	int index, size = _object.get_actions_list().size();
 	std::cout << "Choose -->";
-	get_number(std::cin, index,
+	get_object(std::cin, index,
 		[size](int number) {
 			if (number < 0 || number >= size) {
 				std::cout << "Your input must be >= 0 and <= " << size-1 << std::endl;

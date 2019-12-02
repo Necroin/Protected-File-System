@@ -3,7 +3,7 @@
 FileSystem::FileSystem(const char* paths) {
 	//auto t = SystemObject::get_current_date_and_time();
 	//root_catalog = new Catalog(nullptr, t.first, t.second, "", "\\");
-	root_catalog = new Catalog(nullptr,"");
+	root_catalog = new Catalog(nullptr);
 	root_catalog->set_name("\\");
 	cur_catalog = root_catalog;
 

@@ -1,11 +1,15 @@
 #include "CommonFile.h"
 #include "../../../User/Table/UsersTable.h"
+#include "../../../Input/Input.h"
 
 
-CommonFile::CommonFile(User* owner, Date date, Time time, std::string path, std::string name) : SystemObject(date, time, path, name), _owner(owner)
+CommonFile::CommonFile(SystemObject* catalog, User* owner, Date date, Time time, std::string name) : 
+	SystemObject(catalog, date, time, name), 
+	_owner(owner)
 {}
 
-CommonFile::CommonFile(std::string path) : SystemObject(path)
+CommonFile::CommonFile(SystemObject* catalog) : 
+	SystemObject(catalog)
 {}
 
 CommonFile::~CommonFile()
@@ -45,24 +49,57 @@ CommonFile::Command* CommonFile::Encrypt(const User& user)
 	return nullptr;
 }
 
+CommonFile::Command* CommonFile::Show_owner(const User& user)
+{
+	std::cout << _owner->get_name();
+	std::string a;
+	get_object(std::cin, a, [](std::string a) -> int
+		{
+			if (a != "") { return 1; }
+			return 0;
+		});
+	return null_command;
+}
+
 void CommonFile::File_Input(std::ifstream& fin)
 {
 	std::istream& in = fin;
 	SystemObject::File_Input(fin);
+	// Считывание ID владельца
 	ID owner_id;
 	in >> owner_id;
+	// Поиск владельца по ID
 	_owner = UsersTable::find(owner_id);
 	if (_owner) {
 		_owner->add_file(this);
+	}
+	// Считывание количства потоков
+	size_t streams_count, stream_offset;
+	in >> streams_count;
+	for (size_t i = 0; i < streams_count; ++i)
+	{
+		in >> stream_offset;
+		_main.push_back(Stream(stream_offset));
 	}
 }
 
 void CommonFile::File_Output(std::ofstream& fout) const
 {
 	std::ostream& out = fout;
+	// Выводе идентификатора обычного файла
 	out << "CommonFile" << " ";
+	// Стандартный вывод объекта
 	SystemObject::File_Output(fout);
-	out << _owner->getID();
+	// Вывод ID владельца
+	out << _owner->getID() << std::endl;
+	// Определение и вывод количества потоков main
+	size_t streams_size = _main.size();
+	fout << streams_size;
+	for (size_t i = 0; i < streams_size; ++i)
+	{
+		fout << " ";
+		fout << _main[i].get_offset();
+	}
 	// END
 	out << std::endl;
 }

@@ -6,7 +6,7 @@
 #include <initializer_list>
 
 template <class T, class ...F>
-int get_number(std::istream& input,T& object, F... functions) {
+int get_object(std::istream& input,T& object, F... functions) {
 	int res, err_flag;
 	do {
 		err_flag = 0;

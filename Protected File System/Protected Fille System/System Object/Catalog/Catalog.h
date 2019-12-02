@@ -25,7 +25,6 @@ private:
 
 	inline static const std::string _type = "Catalog";
 	std::vector<SystemObject*> _objects;
-	Catalog* _parent = nullptr;
 	typedef Command* (Catalog::* fptr)(const User& user);
 
 	fptr actions[6] = {
@@ -75,8 +74,8 @@ private:
 	virtual void File_Input(std::ifstream& fin) override;
 	virtual void File_Output(std::ofstream& fout) const override;
 public:
-	Catalog(Catalog* parent, Date date, Time time, std::string path, std::string name);
-	Catalog(Catalog* parent, std::string path);
+	Catalog(Catalog* parent, Date date, Time time, std::string name);
+	Catalog(Catalog* parent);
 
 	~Catalog();
 	static void Destroy_all_commands();

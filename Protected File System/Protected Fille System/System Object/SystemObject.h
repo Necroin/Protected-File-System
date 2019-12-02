@@ -18,7 +18,7 @@ protected:
 	Time _time;
 	Date _date;
 	std::string _name;
-	std::string _path;
+	SystemObject* _parent = nullptr;
 
 	std::vector<std::pair<ID, AccessSpecifiers>> users_access;
 
@@ -33,9 +33,9 @@ protected:
 	virtual void File_Input(std::ifstream& fin);
 	virtual void File_Output(std::ofstream& fout) const;
 public:
-	SystemObject(Date date, Time time, std::string path, std::string name);
+	SystemObject(SystemObject* catalog, Date date, Time time, std::string name);
+	SystemObject(SystemObject* catalog);
 	SystemObject();
-	SystemObject(std::string path);
 	virtual ~SystemObject();
 	static void Destroy_all_commands();
 	static void Init_all_commands();
@@ -44,13 +44,12 @@ public:
 	SystemObject& set_time (const Time&   time);
 	SystemObject& set_date (const Date&   date);
 	SystemObject& set_name (const std::string& name);
-	SystemObject& set_path (const std::string& path);
 
 	//Getters
 	const Time&   get_time () const;
 	const Date&   get_date () const;
 	const std::string& get_name () const;
-	const std::string& get_path () const;
+	const std::string get_path () const;
 	virtual const std::string& get_object_type() const = 0;
 
 	virtual const std::vector<std::string>& get_actions_list() const = 0;

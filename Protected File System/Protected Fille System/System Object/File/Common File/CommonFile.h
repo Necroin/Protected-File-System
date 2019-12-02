@@ -22,14 +22,15 @@ private:
 
 	typedef Command* (CommonFile::* fptr)(const User& user);
 
-	fptr actions[7] = {
+	fptr actions[8] = {
 		&CommonFile::Cancel,
 		&CommonFile::Open,
 		&CommonFile::Rename,
 		&CommonFile::Copy,
 		&CommonFile::Move,
 		&CommonFile::Delete,
-		&CommonFile::Encrypt
+		&CommonFile::Encrypt,
+		&CommonFile::Show_owner
 	};
 
 
@@ -40,7 +41,8 @@ private:
 		"3.Copy",
 		"4.Move",
 		"5.Delete",
-		"6.Encrypt"
+		"6.Encrypt",
+		"7.Show owner"
 	};
 
 	Command* Open(const User& user);
@@ -48,12 +50,13 @@ private:
 	Command* Move(const User& user);
 	Command* Delete(const User& user);
 	Command* Encrypt(const User& user);
+	Command* Show_owner(const User& user);
 
 	virtual void File_Input(std::ifstream& fin) override;
 	virtual void File_Output(std::ofstream& fout) const override;
 public:
-	CommonFile(User* owner, Date date, Time time, std::string path, std::string name);
-	CommonFile(std::string path);
+	CommonFile(SystemObject* catalog,User* owner, Date date, Time time, std::string name);
+	CommonFile(SystemObject* catalog);
 
 	virtual ~CommonFile();
 	static void Destroy_all_commands();

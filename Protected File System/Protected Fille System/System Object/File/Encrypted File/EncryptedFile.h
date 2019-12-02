@@ -41,7 +41,8 @@ private:
 	virtual void File_Input(std::ifstream& fin) override;
 	virtual void File_Output(std::ofstream& fout) const override;
 public:
-	EncryptedFile(User* owner, Date date, Time time, std::string path, std::string name);
+	EncryptedFile(SystemObject* catalog, User* owner, Date date, Time time, std::string name);
+	EncryptedFile(SystemObject* catalog);
 	~EncryptedFile();
 	static void Destroy_all_commands();
 	static void Init_all_commands();

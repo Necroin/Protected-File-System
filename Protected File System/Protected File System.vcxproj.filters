@@ -99,6 +99,9 @@
     <ClCompile Include="Protected Fille System\User\Table\UsersTable.cpp">
       <Filter>Исходные файлы\User\Table</Filter>
     </ClCompile>
+    <ClCompile Include="Protected Fille System\Stream\Stream.cpp">
+      <Filter>Исходные файлы\Stream</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Protected Fille System\Support Structures\Pair.h">

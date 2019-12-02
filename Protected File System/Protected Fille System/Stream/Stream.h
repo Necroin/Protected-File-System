@@ -8,7 +8,12 @@ class Stream
 private:
 	size_t _offset;
 	inline static const size_t block_size = 100;
+	std::string _buffer;
 public:
-	Stream(std::string name, size_t offset);
+	Stream(size_t offset);
+	size_t get_offset() const;
+	const std::string& get_buffer() const;
+	std::string get_buffer();
+	bool empty();
 };
 #endif

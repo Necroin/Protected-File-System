@@ -1,14 +1,12 @@
 #include "Catalog.h"
 #include "../../Input/Input.h"
 
-Catalog::Catalog(Catalog* parent, Date date, Time time, std::string path, std::string name) :
-	SystemObject(date, time, path, name),
-	_parent(parent)
+Catalog::Catalog(Catalog* parent, Date date, Time time, std::string name) :
+	SystemObject(parent, date, time, name)
 {}
 
-Catalog::Catalog(Catalog * parent, std::string path) :
-	SystemObject(path),
-	_parent(parent)
+Catalog::Catalog(Catalog* parent) :
+	SystemObject(parent)
 {}
 
 Catalog::~Catalog()
@@ -54,7 +52,7 @@ Catalog::Command* Catalog::Choose_in_actions(User& user)
 {
 	int index, size = _parent ? actions_list_in_.size() : actions_list_in_.size() - 1;
 	std::cout << "Choose -->";
-	get_number(std::cin, index,
+	get_object(std::cin, index,
 		[size](int number) {
 			if (number < 0 || number >= size) {
 				std::cout << "Your input must be >= 0 and <= " << size-1 << std::endl;
@@ -106,7 +104,7 @@ size_t Catalog::Wait()
 	int size = _objects.size();
 	std::cout << "Choose system object to interact with";
 	std::cout << " -->";
-	get_number(std::cin,choise,
+	get_object(std::cin,choise,
 		[size,lower_limit](int number) -> int {
 			if (number < lower_limit || number > size) {
 				std::cout << "Your input must be >= " << lower_limit << " and <="  << size << std::endl;
@@ -125,7 +123,7 @@ bool Catalog::have_parent()
 
 Catalog* Catalog::get_parent()
 {
-	return _parent;
+	return static_cast<Catalog*>(_parent);
 }
 
 SystemObject* Catalog::find(std::string name)
@@ -205,11 +203,10 @@ Catalog::Command* Catalog::LogOut(const User& user)
 void Catalog::File_Input(std::ifstream& fin)
 {
 	std::istream& in = fin;
+	// Общеее считывание
 	SystemObject::File_Input(fin);
+	// Количество вложенных объектов
 	size_t size;
-	std::string path = _path;
-	path.append(_name);
-	path.append("\\");
 	std::string object_type;
 	fin >> size;
 	for (size_t i = 0; i < size; i++)
@@ -217,18 +214,21 @@ void Catalog::File_Input(std::ifstream& fin)
 		SystemObject* object = nullptr;
 		fin >> object_type;
 		if (object_type == "Catalog") {
-			object = new Catalog(this, path);
+			object = new Catalog(this);
 
 		}
 		else if (object_type == "CommonFile") {
-			object = new CommonFile(path);
+			object = new CommonFile(this);
 		}
 		else if (object_type == "EncryptedFile") {
+		}
+
+		if (object != nullptr) {
+			fin >> *object;
 		}
 		else {
 			throw std::exception("Descriptors corrupted");
 		}
-		fin >> *object;
 		_objects.push_back(object);
 	}
 }
@@ -236,10 +236,14 @@ void Catalog::File_Input(std::ifstream& fin)
 void Catalog::File_Output(std::ofstream& fout) const
 {
 	std::ostream& out = fout;
+	// Оаознаватель каталога
 	out << "Catalog" << " ";
+	// Стандартный вывод
 	SystemObject::File_Output(fout);
+	// Определение и вывод количества вложенных объектов
 	size_t size = _objects.size();
 	out << size << std::endl;
+	// Вывод всех вложенных объектов
 	for (size_t i = 0; i < size; ++i)
 	{
 		fout << (*_objects[i]);

@@ -1,11 +1,13 @@
 #include "SystemObject.h"
-
+#include <list>
+#include "Catalog/Catalog.h"
 
 
 void SystemObject::Show()
 {
 	system("cls");
-	std::cout << "Path : " << _path << std::endl;
+	std::string path("there must be a path");
+	std::cout << "Path : " << path << std::endl;
 }
 
 Pair<Date, Time> SystemObject::get_current_date_and_time()
@@ -27,17 +29,17 @@ SystemObject::Command* SystemObject::Rename(const User& user)
 	return rename_command;
 }
 
-SystemObject::SystemObject(Date date, Time time, std::string path, std::string name) :
+SystemObject::SystemObject(SystemObject* catalog, Date date, Time time, std::string name) :
 	_date(date),
 	_time(time),
-	_path(path),
+	_parent(catalog),
 	_name(name)
 {}
 
-SystemObject::SystemObject() {}
-
-SystemObject::SystemObject(std::string path) : _path(path)
+SystemObject::SystemObject(SystemObject * catalog) : _parent(catalog)
 {}
+
+SystemObject::SystemObject() {}
 
 SystemObject::~SystemObject() {}
 
@@ -73,12 +75,6 @@ SystemObject& SystemObject::set_name(const std::string& name)
 	return *this;
 }
 
-SystemObject& SystemObject::set_path(const std::string& path)
-{
-	_path = path;
-	return *this;
-}
-
 const Time& SystemObject::get_time() const
 {
 	return _time;
@@ -94,9 +90,10 @@ const std::string& SystemObject::get_name() const
 	return _name;
 }
 
-const std::string& SystemObject::get_path() const
+const std::string SystemObject::get_path() const
 {
-	return _path;
+	std::string path("that is path");
+	return path;
 }
 
 std::ifstream& operator>>(std::ifstream& fin, SystemObject& object)
@@ -128,12 +125,15 @@ std::ofstream& operator<<(std::ofstream& fout, const SystemObject& object)
 
 void SystemObject::File_Output(std::ofstream& fout) const
 {
+	// ¬ывод даты, времени и имени
 	fout << _date << " ";
 	fout << _time << " ";
 	static_cast<std::ostream&>(fout) << _name;
 	fout << std::endl;
+	// ќпределение и вывод количества пользователей с доступом
 	size_t Id_count = users_access.size();
 	fout << Id_count << std::endl;
+	// ¬ывод всех пользователей ( ID и их права)
 	for (size_t i = 0; i < Id_count; ++i)
 	{
 		auto pair = users_access[i];

@@ -14,7 +14,7 @@ void FileSystem::log_on()
 		}
 		std::cout << std::endl;
 		std::cout << "Chooose the options --> ";
-		get_number(std::cin, choise,
+		get_object(std::cin, choise,
 			[size](int number) -> int
 			{
 				if (number < 0 || number >= size) {
@@ -45,7 +45,7 @@ void FileSystem::Sign_in()
 	}
 	std::cout << std::endl;
 	std::cout << "Chooose profile --> ";
-	get_number(std::cin, choise,
+	get_object(std::cin, choise,
 		[users_count](int number) -> int
 		{
 			if (number<0 || number > users_count) {

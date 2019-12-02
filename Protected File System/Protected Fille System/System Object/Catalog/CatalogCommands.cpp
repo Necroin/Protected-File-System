@@ -1,5 +1,7 @@
 #include "Catalog.h"
 #include "../../File System/FileSystem.h"
+#include <list>
+
 
 bool Catalog::OpenCommand::execute(SystemObject*& catalog, SystemObject*& object, User*& user)
 {
@@ -26,10 +28,7 @@ bool Catalog::CreateFileCommand::execute(SystemObject*& catalog, SystemObject*& 
 	std::cout << "Enter the name of file --> ";
 	std::cin >> name;
 	if (!static_cast<Catalog*>(catalog)->find(name)) {
-		std::string path = object->get_path();
-		path.append(object->get_name());
-		path.append("\\");
-		static_cast<Catalog*>(object)->add_object(new CommonFile(user, d_t.first, d_t.second, path, name));
+		static_cast<Catalog*>(object)->add_object(new CommonFile(catalog,user, d_t.first, d_t.second, name));
 		std::cout << "File added" << std::endl;
 	}
 	else {
@@ -46,10 +45,7 @@ bool Catalog::CreateCatalogCommand::execute(SystemObject*& catalog, SystemObject
 	std::cout << "Enter the name of catalog --> ";
 	std::cin >> name;
 	if (!static_cast<Catalog*>(catalog)->find(name)) {
-		std::string path = object->get_path();
-		path.append(object->get_name());
-		path.append("\\");
-		static_cast<Catalog*>(object)->add_object(new Catalog(static_cast<Catalog*>(object), d_t.first, d_t.second, path, name));
+		static_cast<Catalog*>(object)->add_object(new Catalog(static_cast<Catalog*>(object), d_t.first, d_t.second, name));
 		std::cout << "Catalog added" << std::endl;
 	}
 	else {

@@ -130,6 +130,7 @@
     <ClCompile Include="Protected Fille System\File System\FileLoadsAndSaves.cpp" />
     <ClCompile Include="Protected Fille System\File System\FileSystem.cpp" />
     <ClCompile Include="Protected Fille System\File System\LogOn.cpp" />
+    <ClCompile Include="Protected Fille System\Stream\Stream.cpp" />
     <ClCompile Include="Protected Fille System\System Object\Catalog\Catalog.cpp" />
     <ClCompile Include="Protected Fille System\System Object\Catalog\CatalogCommands.cpp" />
     <ClCompile Include="Protected Fille System\System Object\File\Common File\CommonFile.cpp" />
