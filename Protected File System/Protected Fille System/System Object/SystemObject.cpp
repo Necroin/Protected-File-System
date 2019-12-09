@@ -59,7 +59,7 @@ SystemObject::Command* SystemObject::Rename(const User& user)
 SystemObject::Command* SystemObject::Show_info(const User& user)
 {
 
-	if (check_owner_or_admin(user.getID()) || check_permission_read(user.getID())) {
+	if (check_permission_read(user.getID())) {
 		std::cout << _date << std::endl << _time << std::endl;
 		_getch();
 		return null_command;
@@ -122,7 +122,7 @@ SystemObject::Command* SystemObject::Move(const User& user)
 
 SystemObject::Command* SystemObject::Copy(const User& user)
 {
-	if (check_owner_or_admin(user.getID()) || check_permission_read(user.getID())) {
+	if (check_permission_read(user.getID())) {
 		FileSystem::buffer_command = copy_command;
 		FileSystem::buffer_object = this;
 		FileSystem::buffer_command_type = "Copy";
@@ -291,6 +291,7 @@ void SystemObject::File_Output(std::ofstream& fout) const
 
 bool SystemObject::check_permission_read(ID id)
 {
+	if (check_owner_or_admin(id)) { return true; }
 	for (size_t i = 0; i < _users_access.size(); ++i)
 	{
 		if (_users_access[i].first == id) return _users_access[i].second._read;
@@ -300,6 +301,7 @@ bool SystemObject::check_permission_read(ID id)
 
 bool SystemObject::check_permission_write(ID id)
 {
+	if (check_owner_or_admin(id)) { return true; }
 	for (size_t i = 0; i < _users_access.size(); ++i)
 	{
 		if (_users_access[i].first == id) return _users_access[i].second._write;
@@ -309,6 +311,7 @@ bool SystemObject::check_permission_write(ID id)
 
 bool SystemObject::check_permission_run(ID id)
 {
+	if (check_owner_or_admin(id)) { return true; }
 	for (size_t i = 0; i < _users_access.size(); ++i)
 	{
 		if (_users_access[i].first == id) return _users_access[i].second._run;

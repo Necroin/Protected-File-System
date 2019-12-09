@@ -25,7 +25,7 @@ private:
 	std::vector<SystemObject*> _objects;
 	typedef Command* (Catalog::* fptr)(const User& user);
 
-	fptr actions[8] = {
+	fptr actions[9] = {
 		&Catalog::Cancel,
 		&Catalog::Open,
 		&Catalog::Rename,
@@ -33,7 +33,8 @@ private:
 		&Catalog::Move,
 		&Catalog::Delete,
 		&Catalog::Show_data,
-		&Catalog::Show_info
+		&Catalog::Show_info,
+		&Catalog::Change_permissions
 	};
 
 
@@ -45,23 +46,26 @@ private:
 		"4.Move",
 		"5.Delete",
 		"6.Show",
-		"7.Show info"
+		"7.Show info",
+		"8.Change permissions"
 	};
 
 	inline static const std::vector<std::string> actions_list_in_ = {
 		"0.Cancel",
 		"1.Show",
 		"2.Put in",
-		"3.Create File",
-		"4.Create Catalog",
-		"5.Log out",
-		"6.Back Up"
+		"3.Change permissions",
+		"4.Create File",
+		"5.Create Catalog",
+		"6.Log out",
+		"7.Back Up"
 	};
 
-	fptr actions_in_[7] = {
+	fptr actions_in_[8] = {
 		&Catalog::Cancel,
 		&Catalog::Show_data,
 		&Catalog::Put_in,
+		&Catalog::Change_permissions,
 		&Catalog::Create_File,
 		&Catalog::Create_Catalog,
 		&Catalog::LogOut,
