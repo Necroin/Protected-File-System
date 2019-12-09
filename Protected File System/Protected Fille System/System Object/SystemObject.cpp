@@ -69,6 +69,37 @@ SystemObject::Command* SystemObject::Show_info(const User& user)
 	}
 }
 
+SystemObject::Command* SystemObject::Show_my_permissions(const User& user)
+{
+	AccessSpecifiers access{false,false,false};
+	if (check_owner_or_admin(user.getID())) {
+		access = { true,true,true };
+	}
+	else {
+		for (size_t i = 0; i < _users_access.size(); ++i)
+		{
+			auto user_access = _users_access[i];
+			if (user_access.first == user.getID()) {
+				access = user_access.second;
+				break;
+			}
+		}
+	}
+	std::cout << "Your permissions :" << std::endl;
+	std::cout << "Read  : " << (access._read ? "true" : "false") <<std::endl;
+	std::cout << "Write : " << (access._write ? "true" : "false") << std::endl;
+	std::cout << "Run   : " << (access._run ? "true" : "false") << std::endl;
+	_getch();
+	return null_command;
+}
+
+SystemObject::Command* SystemObject::Show_owner(const User& user)
+{
+	std::cout << _owner->get_name();
+	_getch();
+	return null_command;
+}
+
 SystemObject::Command* SystemObject::Change_permissions(const User& user)
 {
 	if (user.getID() == _owner->getID()) {

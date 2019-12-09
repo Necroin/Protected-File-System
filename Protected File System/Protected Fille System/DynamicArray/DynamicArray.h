@@ -94,7 +94,7 @@ public:
 };
 
 template<class T,class Allocator = std::allocator<T>>
-class std::vector
+class DynamicArray
 {
 private:
 	ptrdiff_t _difference = sizeof(T);
@@ -138,7 +138,7 @@ public:
 	using reverse_iterator = std::reverse_iterator<iterator>;
 
 	// Constructors
-	std::vector() {
+	DynamicArray() {
 		try {
 			_array = allocator_t::allocate(_allocator, _capacity);
 		}
@@ -146,7 +146,7 @@ public:
 			throw std::bad_alloc(ex);
 		}
 	}
-	std::vector(const std::initializer_list<T>& list) {
+	DynamicArray(const std::initializer_list<T>& list) {
 		size_t list_size = list.size();
 
 		if (list_size >= _capacity) {
@@ -166,7 +166,7 @@ public:
 		}
 	}
 
-	std::vector(const std::vector& other) :
+	DynamicArray(const DynamicArray& other) :
 		_capacity(other._capacity),
 		_size(other._size)
 	{
@@ -182,7 +182,7 @@ public:
 		}
 	}
 
-	std::vector(std::vector&& other) noexcept :
+	DynamicArray(DynamicArray&& other) noexcept :
 		_size(other._size),
 		_capacity(other._capacity),
 		_array(other._array)
@@ -191,12 +191,12 @@ public:
 	}
 
 	// Destructor
-	~std::vector() {
+	~DynamicArray() {
 		delete_current_array();
 	}
 
 	// operator =
-	std::vector& operator=(const std::vector& other) {
+	DynamicArray& operator=(const DynamicArray& other) {
 		if (&other == this) {
 			return *this;
 		}
@@ -226,7 +226,7 @@ public:
 		return *this;
 	}
 
-	std::vector& operator=(std::vector&& other) noexcept {
+	DynamicArray& operator=(DynamicArray&& other) noexcept {
 		if (&other == this) {
 			return *this;
 		}
@@ -468,22 +468,22 @@ public:
 	}
 
 	template<class T, class Allocator>
-	friend bool operator == (const std::vector& _Left, const std::vector& _Right);
+	friend bool operator == (const DynamicArray& _Left, const DynamicArray& _Right);
 };
 
 
 #endif
 
 template<class T, class Allocator>
-inline bool operator==(const typename std::vector<T,Allocator>& _Left, const typename std::vector<T, Allocator>& _Right)
+inline bool operator==(const typename DynamicArray<T,Allocator>& _Left, const typename DynamicArray<T, Allocator>& _Right)
 {
 	if (_Left.size() != _Right.size()) {
 		return false;
 	}
 
-	typename std::vector < T, Allocator>::const_iterator left_begin = _Left.begin();
-	typename std::vector < T, Allocator>::const_iterator left_end = _Left.end();
-	typename std::vector < T, Allocator>::const_iterator right_begin = _Right.begin();
+	typename DynamicArray < T, Allocator>::const_iterator left_begin = _Left.begin();
+	typename DynamicArray < T, Allocator>::const_iterator left_end = _Left.end();
+	typename DynamicArray < T, Allocator>::const_iterator right_begin = _Right.begin();
 
 	while (left_begin != left_end)
 	{

@@ -54,7 +54,9 @@ protected:
 	Command* Delete(const User& user);
 	Command* Rename(const User& user);
 	Command* Show_info(const User& user);
+	Command* Show_my_permissions(const User& user);
 	Command* Change_permissions(const User& user);
+	Command* Show_owner(const User& user);
 
 
 	static void reset_buffer();

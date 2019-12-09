@@ -47,13 +47,6 @@ CommonFile::Command* CommonFile::Encrypt(const User& user)
 	return encrypt_command;
 }
 
-CommonFile::Command* CommonFile::Show_owner(const User& user)
-{
-	std::cout << _owner->get_name();
-	_getch();
-	return null_command;
-}
-
 CommonFile::Command* CommonFile::Read(const User& user)
 {
 	for (size_t i = 0; i < _main.size(); ++i)
