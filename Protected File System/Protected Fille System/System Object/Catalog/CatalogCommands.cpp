@@ -1,23 +1,10 @@
 #include "Catalog.h"
 #include "../../File System/FileSystem.h"
-#include <list>
 
 
 bool Catalog::OpenCommand::execute(SystemObject*& catalog, SystemObject*& object, User*& user)
 {
 	catalog = object;
-	return true;
-}
-
-bool Catalog::CopyCommand::execute(SystemObject*& catalog, SystemObject*& object, User*& user)
-{
-	//implementation
-	return true;
-}
-
-bool Catalog::DeleteCommand::execute(SystemObject*& catalog, SystemObject*& object, User*& user)
-{
-	static_cast<Catalog*>(catalog)->erase(object);
 	return true;
 }
 
@@ -45,7 +32,7 @@ bool Catalog::CreateCatalogCommand::execute(SystemObject*& catalog, SystemObject
 	std::cout << "Enter the name of catalog --> ";
 	std::cin >> name;
 	if (!static_cast<Catalog*>(catalog)->find(name)) {
-		static_cast<Catalog*>(object)->add_object(new Catalog(static_cast<Catalog*>(object), d_t.first, d_t.second, name));
+		static_cast<Catalog*>(object)->add_object(new Catalog(static_cast<Catalog*>(object), user, d_t.first, d_t.second, name));
 		std::cout << "Catalog added" << std::endl;
 	}
 	else {
@@ -57,12 +44,20 @@ bool Catalog::CreateCatalogCommand::execute(SystemObject*& catalog, SystemObject
 
 bool Catalog::BackUpCommand::execute(SystemObject*& catalog, SystemObject*& object, User*& user)
 {
-	catalog = static_cast<Catalog*>(catalog)->get_parent();
+	catalog = catalog->get_parent();
 	return true;
 }
 
 bool Catalog::LogOutCommand::execute(SystemObject*& catalog, SystemObject*& object, User*& user)
 {
 	user = nullptr;
+	return true;
+}
+
+bool Catalog::PutInCommand::execute(SystemObject*& catalog, SystemObject*& object, User*& user)
+{
+	if (FileSystem::buffer_command && FileSystem::buffer_object) {
+		FileSystem::buffer_command->execute(catalog, FileSystem::buffer_object, user);
+	}
 	return true;
 }

@@ -1,4 +1,5 @@
 #include "FileSystem.h"
+#include "../User/Table/UsersTable.h"
 
 void FileSystem::load_users() 
 {
@@ -28,14 +29,11 @@ void FileSystem::load_descriptors()
 {
 	std::ifstream Descriptors(Descriptors_file_path);
 	std::string root_type;
-	if (Descriptors >> root_type) {
-		if (root_type == "Catalog") {
+	if (Descriptors >> root_type && root_type == "Catalog") {
 			Descriptors >> *root_catalog;
-		}
-		else {
-			_active = false;
-			throw std::exception("Descriptors corrupted");
-		}
+	}
+	else {
+		Reset();
 	}
 	Descriptors.close();
 }
@@ -45,4 +43,15 @@ void FileSystem::save_descriptors()
 	std::ofstream Descriptors(Descriptors_file_path,std::ios_base::trunc);
 	Descriptors << *root_catalog;
 	Descriptors.close();
+}
+
+
+void FileSystem::Reset() {
+	delete root_catalog;
+	auto date_and_time = SystemObject::get_current_date_and_time();
+	root_catalog = new Catalog(nullptr,UsersTable::find(1), date_and_time.first, date_and_time.second, "\\");
+	cur_catalog = root_catalog;
+	std::ofstream(Descriptors_file_path, std::ios_base::trunc).close();
+	std::ofstream(Data_file_path, std::ios_base::trunc).close();
+	(std::ofstream(FreeDataBlocks_file_path, std::ios_base::trunc) << 0).close();
 }

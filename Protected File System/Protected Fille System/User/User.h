@@ -27,7 +27,7 @@ class User
 private:
 	ID _id;
 	std::string _name;
-	std::vector<SystemObject*> _files;
+	std::vector<SystemObject*> _objects;
 public:
 	User(std::string name);
 	User();
@@ -35,7 +35,7 @@ public:
 	inline static ID last_free_id;
 	size_t getID() const;
 	const std::string& get_name() const;
-	void add_file(SystemObject* file);
+	void add_object(SystemObject* object);
 
 	friend std::ifstream& operator>>(std::ifstream& fin, User& user);
 	friend std::ofstream& operator<<(std::ofstream& fout, const User& user);

@@ -18,7 +18,7 @@ const std::string& User::get_name() const
 	return _name;
 }
 
-void User::add_file(SystemObject* file)
+void User::add_object(SystemObject* object)
 {
-	_files.push_back(file);
+	_objects.push_back(object);
 }

@@ -13,6 +13,11 @@ User* UsersTable::find(const ID& id)
 	return find_user;
 }
 
+const std::vector<User*>& UsersTable::get_all_users()
+{
+	return _users;
+}
+
 void UsersTable::add(User* user)
 {
 	_users.push_back(user);

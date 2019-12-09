@@ -6,9 +6,9 @@
 class UsersTable {
 private:
 	inline static std::vector<User*> _users;
-
 public:
 	static User* find(const ID& id);
+	static const std::vector<User*>& get_all_users();
 	void add(User* user);
 	void erase(const ID& id);
 	size_t size();

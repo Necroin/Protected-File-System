@@ -5,6 +5,9 @@
 
 class EncryptedFile : public CommonFile
 {
+public:
+	class DecryptCommand;
+	class OpenCommand;
 protected:
 	std::vector<Stream> _symkey;
 private:
@@ -33,9 +36,6 @@ private:
 	};
 
 	Command* Open(const User& user);
-	Command* Copy(const User& user);
-	Command* Move(const User& user);
-	Command* Delete(const User& user);
 	Command* Decrypt(const User& user);
 
 	virtual void File_Input(std::ifstream& fin) override;
@@ -51,5 +51,16 @@ public:
 	virtual Command* get_command(size_t index, const User& user) override;
 	virtual void Show();
 	virtual const std::string& get_object_type() const override;
+
+
+
+	std::pair<std::vector<Stream>&, std::vector<Stream>&> load_data();
+	void save_data(const std::string new_data);
+	void save_data();
+
+	virtual void delete_data() override;
+	virtual SystemObject* clone(SystemObject* new_parent, User* new_owner) override;
+
+	virtual void show_self(size_t offset) override;
 };
 #endif

@@ -1,8 +1,11 @@
 #include "Catalog.h"
 #include "../../Input/Input.h"
+#include "../../WinhFunc/WinhFunc.h"
+#include <conio.h>
 
-Catalog::Catalog(Catalog* parent, Date date, Time time, std::string name) :
-	SystemObject(parent, date, time, name)
+
+Catalog::Catalog(Catalog* parent, User* user, Date date, Time time, std::string name) :
+	SystemObject(parent, user, date, time, name)
 {}
 
 Catalog::Catalog(Catalog* parent) :
@@ -20,22 +23,20 @@ Catalog::~Catalog()
 void Catalog::Destroy_all_commands()
 {
 	delete open_command;
-	delete copy_command;
-	delete delete_command;
 	delete create_file_command;
 	delete create_catalog_command;
 	delete back_up_command;
+	delete put_in_command;
 }
 
 void Catalog::Init_all_commands()
 {
 	open_command = new OpenCommand;
-	copy_command = new CopyCommand;
-	delete_command = new DeleteCommand;
 	create_file_command = new CreateFileCommand;
 	create_catalog_command = new CreateCatalogCommand;
 	back_up_command = new BackUpCommand;
 	log_out_command = new LogOutCommand;
+	put_in_command = new PutInCommand;
 }
 
 void Catalog::Show_in_actions()
@@ -116,14 +117,25 @@ size_t Catalog::Wait()
 	return static_cast<size_t>(choise);
 }
 
-bool Catalog::have_parent()
+void Catalog::delete_data()
 {
-	return _parent ? true : false;
+	SystemObject::delete_data();
+	for (size_t i = 0; i < _objects.size(); ++i)
+	{
+		_objects[i]->delete_data();
+		delete _objects[i];
+	}
 }
 
-Catalog* Catalog::get_parent()
+SystemObject* Catalog::clone(SystemObject* new_parent, User* new_owner)
 {
-	return static_cast<Catalog*>(_parent);
+	auto data_and_time = get_current_date_and_time();
+	Catalog* copy_catalog = new Catalog(static_cast<Catalog*>(new_parent), new_owner, data_and_time.first, data_and_time.second, _name);
+	for (size_t i = 0; i < _objects.size(); ++i)
+	{
+		copy_catalog->add_object(this->_objects[i]->clone(this, new_owner));
+	}
+	return copy_catalog;
 }
 
 SystemObject* Catalog::find(std::string name)
@@ -133,11 +145,6 @@ SystemObject* Catalog::find(std::string name)
 		if (_objects[i]->get_name() == name) { return _objects[i]; }
 	}
 	return nullptr;
-}
-
-std::vector<SystemObject*> Catalog::find_all(std::string name)
-{
-	return std::vector<SystemObject*>();
 }
 
 void Catalog::erase(SystemObject*& other)
@@ -165,21 +172,6 @@ Catalog::Command* Catalog::Open(const User& user)
 	return open_command;
 }
 
-Catalog::Command* Catalog::Copy(const User& user)
-{
-	return copy_command;
-}
-
-Catalog::Command* Catalog::Move(const User& user)
-{
-	return move_command;
-}
-
-Catalog::Command* Catalog::Delete(const User& user)
-{
-	return delete_command;
-}
-
 Catalog::Command* Catalog::Create_File(const User& user)
 {
 	return create_file_command;
@@ -198,6 +190,19 @@ Catalog::Command* Catalog::BackUp(const User& user)
 Catalog::Command* Catalog::LogOut(const User& user)
 {
 	return log_out_command;
+}
+
+Catalog::Command* Catalog::Show_data(const User& user)
+{
+	size_t offset = 0;
+	this->show_self(offset);
+	_getch();
+	return null_command;
+}
+
+Catalog::Command* Catalog::Put_in(const User& user)
+{
+	return put_in_command;
 }
 
 void Catalog::File_Input(std::ifstream& fin)
@@ -248,4 +253,19 @@ void Catalog::File_Output(std::ofstream& fout) const
 	{
 		fout << (*_objects[i]);
 	}
+}
+
+void Catalog::show_self(size_t offset)
+{
+	//static const char corner = 192;
+	//static const char dash = 196;
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	auto coords = GetConsoleCursorPosition(hConsole);
+	gotoxy(hConsole, offset, coords.Y);
+	std::cout /*<< (char)corner << (char)dash << (char)dash*/ << "(" << _type << ") " << _name << std::endl;
+	for (size_t i = 0; i < _objects.size(); ++i)
+	{
+		_objects[i]->show_self(offset + 3);
+	}
+
 }

@@ -16,6 +16,12 @@ private:
 	UsersTable _users;
 	User* cur_user = nullptr;
 
+	friend class SystemObject;
+	friend class Catalog::PutInCommand;
+
+	inline static SystemObject::Command* buffer_command = nullptr;
+	inline static SystemObject* buffer_object = nullptr;
+	inline static std::string buffer_command_type = "None";
 
 	std::string Data_file_path;
 	std::string FreeDataBlocks_file_path;
@@ -45,6 +51,9 @@ private:
 	void Close();
 	void Sign_in();
 	void Sign_up();
+
+	void Reset();
+	void Show_buffer();
 public:
 	FileSystem(const char* file_with_paths);
 	~FileSystem();

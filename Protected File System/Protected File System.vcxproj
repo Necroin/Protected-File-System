@@ -136,13 +136,16 @@
     <ClCompile Include="Protected Fille System\System Object\File\Common File\CommonFile.cpp" />
     <ClCompile Include="Protected Fille System\System Object\File\Common File\CommonFileCommands.cpp" />
     <ClCompile Include="Protected Fille System\System Object\File\Encrypted File\EncryptedFile.cpp" />
+    <ClCompile Include="Protected Fille System\System Object\File\Encrypted File\EncryptedFileCommands.cpp" />
     <ClCompile Include="Protected Fille System\System Object\SystemObject.cpp" />
     <ClCompile Include="Protected Fille System\System Object\SystemObjectCommands.cpp" />
     <ClCompile Include="Protected Fille System\User\Table\UsersTable.cpp" />
     <ClCompile Include="Protected Fille System\User\User.cpp" />
+    <ClCompile Include="Protected Fille System\WinhFunc\WinhFunc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Protected Fille System\Contextual Menu\ContextualMenu.h" />
+    <ClInclude Include="Protected Fille System\DynamicArray\DynamicArray.h" />
     <ClInclude Include="Protected Fille System\File System\FileSystem.h" />
     <ClInclude Include="Protected Fille System\Input\Input.h" />
     <ClInclude Include="Protected Fille System\Stream\Stream.h" />

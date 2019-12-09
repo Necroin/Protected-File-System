@@ -55,6 +55,9 @@
     <Filter Include="Исходные файлы\User\Table">
       <UniqueIdentifier>{d3ec1d80-e7ee-43f6-8ba1-66d78c828eb1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\DynamicArray">
+      <UniqueIdentifier>{b7b9113b-84df-4af3-9e4f-aa1598309b98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Protected Fille System\System Object\Catalog\Catalog.cpp">
@@ -102,6 +105,12 @@
     <ClCompile Include="Protected Fille System\Stream\Stream.cpp">
       <Filter>Исходные файлы\Stream</Filter>
     </ClCompile>
+    <ClCompile Include="Protected Fille System\System Object\File\Encrypted File\EncryptedFileCommands.cpp">
+      <Filter>Исходные файлы\System Object\File\Encrypted File</Filter>
+    </ClCompile>
+    <ClCompile Include="Protected Fille System\WinhFunc\WinhFunc.cpp">
+      <Filter>Исходные файлы\Winh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Protected Fille System\Support Structures\Pair.h">
@@ -145,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="Protected Fille System\User\Table\UsersTable.h">
       <Filter>Исходные файлы\User\Table</Filter>
+    </ClInclude>
+    <ClInclude Include="Protected Fille System\DynamicArray\DynamicArray.h">
+      <Filter>Исходные файлы\DynamicArray</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
