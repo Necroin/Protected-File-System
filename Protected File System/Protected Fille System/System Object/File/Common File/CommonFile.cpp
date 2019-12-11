@@ -39,22 +39,38 @@ size_t CommonFile::get_free_block()
 
 CommonFile::Command* CommonFile::Open(const User& user)
 {
-	return open_command;
+	if (check_permission_write(user.getID())) {
+		return open_command;
+	}
+	else {
+		return error_massage_command->set_message("You can not write in that file");
+	}
 }
 
 CommonFile::Command* CommonFile::Encrypt(const User& user)
 {
-	return encrypt_command;
+	if (_owner->getID() == user.getID()) {
+		return encrypt_command;
+	}
+	else {
+		return error_massage_command->set_message("Only owner can encrypt that file");
+	}
 }
 
 CommonFile::Command* CommonFile::Read(const User& user)
 {
-	for (size_t i = 0; i < _main.size(); ++i)
-	{
-		std::cout << _main[i].show(data);
+	if (check_permission_read(user.getID()) || check_permission_run(user.getID()) || check_permission_write(user.getID())) {
+		for (size_t i = 0; i < _main.size(); ++i)
+		{
+			std::cout << _main[i].show(data);
+		}
+		_getch();
+		return null_command;
 	}
-	_getch();
-	return null_command;
+	else
+	{
+		return error_massage_command->set_message("You have no rights");
+	}
 }
 
 void CommonFile::File_Input(std::ifstream& fin)
@@ -190,19 +206,30 @@ void CommonFile::save_data(const std::string new_data)
 
 void CommonFile::save_data()
 {
+	auto comarator = [](const Stream& left, const Stream& right) -> bool
+	{
+		return left.get_offset() > right.get_offset();
+	};
+	std::priority_queue<Stream, std::vector<Stream>, std::function<bool(const Stream&, const Stream&)>> pq(comarator);
 	for (size_t i = 0; i < _main.size(); ++i)
 	{
-		_main[i].save(data);
+		pq.push(_main[i]);
+	}
+	for (size_t i = 0; i < pq.size(); ++i)
+	{
+		Stream t_stream = pq.top();
+		t_stream.save(data);
+		pq.pop();
 	}
 }
 
 void CommonFile::delete_data()
 {
-	SystemObject::delete_data();
-	for (size_t i = 0; i < _main.size(); ++i)
-	{
-		free_bloks.push(_main[i].get_offset());
-	}
+	//SystemObject::delete_data();
+	//for (size_t i = 0; i < _main.size(); ++i)
+	//{
+	//	free_bloks.push(_main[i].get_offset());
+	//}
 }
 
 SystemObject* CommonFile::clone(SystemObject* new_parent, User* new_owner)

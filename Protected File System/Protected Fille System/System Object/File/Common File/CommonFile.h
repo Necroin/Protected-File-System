@@ -13,9 +13,11 @@ public:
 protected:
 	std::vector<Stream> _main;
 	inline static std::priority_queue<size_t, std::vector<size_t>, std::greater<size_t>> free_bloks;
-	size_t get_free_block();
+	static size_t get_free_block();
 	inline static std::fstream data;
 private:
+	friend class EncryptCommand;
+
 	inline static OpenCommand* open_command;
 	inline static EncryptCommand* encrypt_command;
 

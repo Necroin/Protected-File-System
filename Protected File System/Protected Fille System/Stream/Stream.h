@@ -9,7 +9,7 @@ class Stream
 private:
 	size_t _offset;
 	std::string _buffer;
-public:
+public:	
 	inline static const size_t block_size = 10;
 	Stream(size_t offset);
 	Stream(size_t offset, std::string buffer);
@@ -22,5 +22,8 @@ public:
 	void save(std::fstream& fout);
 	void load(std::fstream& fin);
 	std::string show(std::fstream& fin);
+
+	std::string encrypt();
+	std::string decrypt();
 };
 #endif

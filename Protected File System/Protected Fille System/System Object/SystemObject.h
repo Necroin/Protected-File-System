@@ -27,6 +27,7 @@ private:
 	friend class ChangePermissionsCommand;
 	friend class AddPermissionsCommand;
 	friend class DeletePermissionsCommand;
+	friend class UsersTable;
 protected:
 	Time _time;
 	Date _date;

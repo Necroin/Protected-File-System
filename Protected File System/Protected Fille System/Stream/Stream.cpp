@@ -48,8 +48,11 @@ std::fstream& go_to_line(std::fstream& file, int num) {
 
 void Stream::save(std::fstream& fout)
 {
+	//static const std::string place(10 + 1 + block_size, ' ');
+	//go_to_line(fout, _offset);
+	//fout << place;
 	go_to_line(fout, _offset);
-	fout << _buffer << std::endl;
+	fout << _buffer.size() << " " << _buffer << std::endl;
 	_buffer.clear();
 }
 
@@ -65,4 +68,28 @@ std::string Stream::show(std::fstream& fin)
 	go_to_line(fin, _offset);
 	std::getline(static_cast<std::istream&>(fin), view);
 	return view;
+}
+
+std::string Stream::encrypt()
+{
+	std::string encrypted_str;
+	for (size_t i = 0; i < _buffer.size(); i++)
+	{
+		auto ch = _buffer[i];
+		ch += 1;
+		encrypted_str += ch;
+	}
+	return encrypted_str;
+}
+
+std::string Stream::decrypt()
+{
+	std::string decrypted_str;
+	for (size_t i = 0; i < _buffer.size(); i++)
+	{
+		auto ch = _buffer[i];
+		ch -= 1;
+		decrypted_str += ch;
+	}
+	return decrypted_str;
 }

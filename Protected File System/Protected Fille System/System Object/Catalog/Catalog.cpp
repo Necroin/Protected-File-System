@@ -2,6 +2,7 @@
 #include "../../Input/Input.h"
 #include "../../WinhFunc/WinhFunc.h"
 #include <conio.h>
+#include "../../User/Table/UsersTable.h"
 
 
 Catalog::Catalog(Catalog* parent, User* user, Date date, Time time, std::string name) :
@@ -203,6 +204,17 @@ Catalog::Command* Catalog::Show_data(const User& user)
 Catalog::Command* Catalog::Put_in(const User& user)
 {
 	return put_in_command;
+}
+
+Catalog::Command* Catalog::Edit_users_table(const User& user)
+{
+	if (user.getID() == 1) {
+		UsersTable::EditTable();
+	}
+	else {
+		return error_massage_command->set_message("Only Admin can edit the users table");
+	}
+	return null_command;
 }
 
 void Catalog::File_Input(std::ifstream& fin)

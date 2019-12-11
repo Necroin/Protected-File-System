@@ -52,7 +52,7 @@ void FileSystem::run()
 			Show_buffer();
 			size_t choise = static_cast<Catalog*>(cur_catalog)->Wait();
 			if (choise) {
-				SystemObject* object = (*static_cast<Catalog*>(cur_catalog))[choise - 1];
+				SystemObject*& object = (*static_cast<Catalog*>(cur_catalog))[choise - 1];
 				ContextualMenu object_menu(*object, *cur_user);
 				object_menu.Show();
 				typename SystemObject::Command* command = object_menu.Choose();

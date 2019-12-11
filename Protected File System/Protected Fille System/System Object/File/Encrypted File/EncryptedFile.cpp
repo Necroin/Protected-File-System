@@ -2,6 +2,7 @@
 #include "../../../User/Table/UsersTable.h"
 #include "../../../Input/Input.h"
 #include "../../../WinhFunc/WinhFunc.h"
+#include <conio.h>
 
 EncryptedFile::EncryptedFile(SystemObject* catalog, User* owner, Date date, Time time, std::string name) : CommonFile(catalog, owner, date, time, name)
 {}
@@ -16,20 +17,58 @@ EncryptedFile::~EncryptedFile()
 
 void EncryptedFile::Destroy_all_commands()
 {
+	delete open_command;
+	delete decrypt_command;
 }
 
 void EncryptedFile::Init_all_commands()
 {
+	open_command = new OpenCommand;
+	decrypt_command = new DecryptCommand;
 }
 
 EncryptedFile::Command* EncryptedFile::Open(const User& user)
 {
-	return nullptr;
+	if (check_permission_write(user.getID())) {
+		return open_command;
+	}
+	else {
+		return error_massage_command->set_message("You have no rights");
+	}
 }
 
 EncryptedFile::Command* EncryptedFile::Decrypt(const User& user)
 {
-	return nullptr;
+	if (_owner->getID() == user.getID()) {
+		return decrypt_command;
+	}
+	else {
+		return error_massage_command->set_message("Only owner can decrypt that file");
+	}
+}
+
+EncryptedFile::Command* EncryptedFile::Read(const User& user)
+{
+	if (check_permission_run(user.getID()) || check_permission_write(user.getID())) {
+		for (size_t i = 0; i < _main.size(); ++i)
+		{
+			std::cout << _main[i].show(data);
+		}
+		_getch();
+		return null_command;
+	}
+	else if (check_permission_read(user.getID())) {
+		for (size_t i = 0; i < _symkey.size(); ++i)
+		{
+			std::cout << _symkey[i].show(data);
+		}
+		_getch();
+		return null_command;
+	}
+	else
+	{
+		return error_massage_command->set_message("You have no rights");
+	}
 }
 
 void EncryptedFile::File_Input(std::ifstream& fin)
@@ -128,7 +167,27 @@ std::pair<std::vector<Stream>&, std::vector<Stream>&> EncryptedFile::load_data()
 
 void EncryptedFile::save_data(const std::string new_data)
 {
+	size_t new_data_size = new_data.size();
+	size_t symbols_read = 0;
+	while (symbols_read < new_data_size)
+	{
+		/*if (!_main.empty()) {
+			size_t last_buffer_size = _main[_main.size() - 1].get_buffer().size();
+			if (last_buffer_size < Stream::block_size) {
+				auto add_str = new_data.substr(symbols_read, Stream::block_size - last_buffer_size);
+				size_t add_str_size = add_str.size();
+				_main[_main.size() - 1].add_to_buffer(add_str);
+				symbols_read += add_str_size;
+				continue;
+			}
+		}*/
+		Stream t(get_free_block(), new_data.substr(symbols_read, Stream::block_size));
+		_main.push_back(t);
+		_symkey.push_back(Stream(get_free_block(), t.encrypt()));
+		symbols_read += Stream::block_size;
+	}
 
+	save_data();
 }
 
 void EncryptedFile::save_data()

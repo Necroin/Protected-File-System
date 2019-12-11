@@ -13,6 +13,9 @@ public:
 	class BackUpCommand;
 	class LogOutCommand;
 	class PutInCommand;
+
+	class DeleteUser;
+	class EditUser;
 private:
 	inline static OpenCommand* open_command;
 	inline static CreateFileCommand* create_file_command;
@@ -20,6 +23,9 @@ private:
 	inline static BackUpCommand* back_up_command;
 	inline static LogOutCommand* log_out_command;
 	inline static PutInCommand* put_in_command;
+
+	inline static DeleteUser* delete_user;
+	inline static EditUser* edit_user;
 
 	inline static const std::string _type = "Catalog";
 	std::vector<SystemObject*> _objects;
@@ -50,7 +56,7 @@ private:
 		"6.  Show",
 		"7.  Show owner",
 		"8.  Show info",
-		"9.  Show my permissions"
+		"9.  Show my permissions",
 		"10. Change permissions"
 	};
 
@@ -62,10 +68,11 @@ private:
 		"4.  Create File",
 		"5.  Create Catalog",
 		"6.  Log out",
-		"7.  Back Up"
+		"7.  Edit users table",
+		"8.  Back Up"
 	};
 
-	fptr actions_in_[8] = {
+	fptr actions_in_[9] = {
 		&Catalog::Cancel,
 		&Catalog::Show_data,
 		&Catalog::Put_in,
@@ -73,6 +80,7 @@ private:
 		&Catalog::Create_File,
 		&Catalog::Create_Catalog,
 		&Catalog::LogOut,
+		&Catalog::Edit_users_table,
 		&Catalog::BackUp
 	};
 
@@ -83,6 +91,8 @@ private:
 	Command* LogOut(const User& user);
 	Command* Show_data(const User& user);
 	Command* Put_in(const User& user);
+
+	Command* Edit_users_table(const User& user);
 
 	virtual void File_Input(std::ifstream& fin) override;
 	virtual void File_Output(std::ofstream& fout) const override;
@@ -108,7 +118,7 @@ public:
 	virtual void delete_data() override;
 	virtual SystemObject* clone(SystemObject* new_parent, User* new_owner) override;
 
-	SystemObject* operator[](size_t index) { return _objects[index]; }
+	SystemObject*& operator[](size_t index) { return _objects[index]; }
 
 
 	SystemObject* find(std::string name);

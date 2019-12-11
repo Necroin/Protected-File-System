@@ -17,7 +17,7 @@ struct AccessSpecifiers
 };
 
 
-
+class UsersTable;
 class SystemObject;
 
 using ID = size_t;
@@ -28,6 +28,7 @@ private:
 	ID _id;
 	std::string _name;
 	std::vector<SystemObject*> _objects;
+	friend class UsersTable;
 public:
 	User(std::string name);
 	User();
