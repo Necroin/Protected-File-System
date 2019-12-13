@@ -58,6 +58,9 @@ bool SystemObject::CopyCommand::execute(SystemObject*& catalog, SystemObject*& o
 {
 	SystemObject* copy_object = object->clone(catalog,user);
 	static_cast<Catalog*>(catalog)->add_object(copy_object);
+	auto copy_name = copy_object->_name;
+	copy_object->_name = copy_name.substr(0, copy_name.find("(Copy_"));
+	copy_object->_name.append("(Copy_").append(std::to_string(object->copy_number++)).append(")");
 	SystemObject::reset_buffer();
 	return true;
 }

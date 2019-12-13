@@ -28,6 +28,8 @@ private:
 	friend class AddPermissionsCommand;
 	friend class DeletePermissionsCommand;
 	friend class UsersTable;
+
+	inline static size_t copy_number = 1;
 protected:
 	Time _time;
 	Date _date;

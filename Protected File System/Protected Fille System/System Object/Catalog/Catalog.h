@@ -27,6 +27,8 @@ private:
 	inline static DeleteUser* delete_user;
 	inline static EditUser* edit_user;
 
+	friend class CopyCommand;
+
 	inline static const std::string _type = "Catalog";
 	std::vector<SystemObject*> _objects;
 	typedef Command* (Catalog::* fptr)(const User& user);

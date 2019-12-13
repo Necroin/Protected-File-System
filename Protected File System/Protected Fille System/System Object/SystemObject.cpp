@@ -60,6 +60,7 @@ SystemObject::Command* SystemObject::Show_info(const User& user)
 {
 
 	if (check_permission_read(user.getID())) {
+		std::cout << "Type of file : " << get_object_type() << std::endl;
 		std::cout << _date << std::endl << _time << std::endl;
 		_getch();
 		return null_command;
